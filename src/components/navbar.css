@@ -1,0 +1,18 @@
+/* src/navbar.css */
+.navbar{
+    height: 70px;
+}
+.navbar-nav .nav-link {
+    color: #677916 !important;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .navbar-brand {
+    color: green !important;
+  }
+  .d-inline-block {
+    font-weight: 7000;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+  
