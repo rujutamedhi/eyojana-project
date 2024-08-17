@@ -1,0 +1,52 @@
+/* General styling for the role selection page */
+.role-selection-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #f8f9fa; /* Lighter grey background for consistency */
+    padding: 0 20px; /* Padding for better mobile experience */
+  }
+  
+  .role-selection-box {
+    background-color: #ffffff; /* Pure white background for the selection box */
+    padding: 30px 40px; /* Consistent padding with the signup box */
+    border-radius: 12px; /* Matching border-radius for a cohesive look */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Similar shadow for depth */
+    max-width: 450px; /* Matching max-width for uniformity */
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Styling for the title */
+  h2 {
+    margin-bottom: 25px;
+    font-size: 26px; /* Consistent font size */
+    color: #343a40; /* Darker grey for stronger contrast */
+  }
+  
+  /* Role selection button container */
+  .role-selection {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+  }
+  
+  /* Styling for role selection buttons */
+  .role-button {
+    flex: 1;
+    padding: 12px; /* Consistent padding */
+    margin: 0 8px; /* Spacing between buttons */
+    border-radius: 6px;
+    border: none;
+    background-color: #28a745; /* Green background */
+    color: white;
+    font-size: 18px; /* Larger font for better readability */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .role-button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
