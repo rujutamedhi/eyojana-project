@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Category from './pages/Category';
 import ApprovedSchemes from './pages/ApprovedSchemes';
+import DocumentsRequired from './pages/DocumentsRequired';
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/admin-signup" element={<AdminSignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/documents-required" element={<DocumentsRequired />} />
       </Routes>
     </Router>
   );

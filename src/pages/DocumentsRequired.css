@@ -1,0 +1,42 @@
+.form-container {
+    padding: 20px;
+  }
+  
+  .document-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .document-form label {
+    margin-bottom: 10px;
+  }
+  
+  .document-form select,
+  .document-form input[type="file"] {
+    margin-top: 5px;
+    padding: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .document-form .additional-document-group {
+    margin-bottom: 15px;
+  }
+  
+  .document-form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .document-form button:hover {
+    background-color: #45a049;
+  }
+  
