@@ -1,11 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import category from '../pages/Category.css';
-import img1 from '../images/logo.png' ;
+// import category from '../pages/Category.css';
+// import img1 from '../images/logo.png' ;
 
 
 const categories = [
-  { title: "Agriculture", imgSrc: "https://via.placeholder.com/150", link: "/agriculture" },
+  { title: "Agriculture", imgSrc: "src/images/2",description: "Scholarships, infrastructure development, and more.", link: "/agriculture" },
   { title: "Education", imgSrc: "https://via.placeholder.com/150", description: "Scholarships, infrastructure development, and more.", link: "/education" },
   { title: "Health", imgSrc: "https://via.placeholder.com/150", description: "Health insurance, vaccination programs, and public health initiatives.", link: "/health" },
   { title: "Women and Child Welfare", imgSrc: "https://via.placeholder.com/150", description: "Programs for women empowerment and child protection.", link: "/women-child-welfare" },
@@ -30,7 +30,7 @@ const Category = () => {
         {categories.map((category, index) => (
           <div className="col-md-3 mb-4" key={index}>
             <div className="card" style={{ width: '17rem' }}>
-              <img src={category.imgSrc} className="card-img-top" alt={category.title} />
+              <img src={category.imgSrc} className="card-img-top" alt={category.title} height={200}/>
               <div className="card-body">
                 <h5 className="card-title">{category.title}</h5>
                 <p className="card-text">{category.description}</p>

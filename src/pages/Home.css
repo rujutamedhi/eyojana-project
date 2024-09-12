@@ -1,0 +1,58 @@
+/* src/components/home.css */
+
+/* Carousel image styling */
+.carousel-img {
+    max-height: 850px; /* Limit height for large screens */
+    object-fit: cover; /* Ensure images are properly cropped */
+}
+  
+  /* Small devices (max-width: 768px) */
+  @media (max-width: 768px) {
+    .carousel-img {
+      max-height: 300px; /* Adjust height for smaller screens */
+    }
+  
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  
+  /* Medium devices (max-width: 992px) */
+  @media (max-width: 992px) {
+    .carousel-img {
+      max-height: 400px; /* Adjust height for tablets */
+    }
+  }
+  
+  /* Hover effect for carousel controls */
+  .carousel-control-prev-icon:hover, .carousel-control-next-icon:hover {
+    filter: brightness(1.2); /* Brighten controls on hover */
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+  }
+  
+  /* Indicator button styling */
+  .carousel-indicators button {
+    background-color: #024950; /* Custom color for indicators */
+  }
+  
+  .carousel-indicators .active {
+    background-color: #0fa4af; /* Active indicator color */
+  }
+  
+  /* Responsive text inside carousel (if needed) */
+  .carousel-caption {
+    font-size: 1.2rem;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5); /* Darken background for text readability */
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  /* On larger screens, adjust caption font size */
+  @media (min-width: 768px) {
+    .carousel-caption {
+      font-size: 1.5rem;
+    }
+  }
+  

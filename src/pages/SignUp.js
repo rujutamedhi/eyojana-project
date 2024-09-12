@@ -1,29 +1,56 @@
+// UserSignUp.js
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
+import Login from "./Login";
 
 const UserSignUp = () => {
   const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
+  const [phone_number, setphone_number] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [state, setState] = useState("");
   const [gender, setGender] = useState("");
   const navigate = useNavigate();
 
-  const handleSignUp = (event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault();
 
-    // Simple client-side validation
-    if (!email || !contact || !password || !username || !state || !gender) {
+    // Client-side validation
+    if (!email || !phone_number || !password || !username || !state || !gender) {
       console.error("All fields are required.");
       return;
     }
 
-    console.log("Sign-up details:", { email, contact, password, username, state, gender });
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/createuser", { // Use your backend port
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          phone_number,
+          password,
+          username,
+          state,
+          gender,
+        }),
+      });
+      
+   
 
-    // Redirect to user dashboard or another page after sign-up
-    navigate("/user-dashboard"); // Adjust this route based on your app
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("User registered successfully:", data);
+        navigate("/login"); // Redirect to login after successful signup
+      } else {
+        console.error("Sign-up failed:", data.errors);
+      }
+    } catch (error) {
+      console.error("Sign-up error:", error);
+    }
   };
 
   return (
@@ -52,14 +79,14 @@ const UserSignUp = () => {
             />
           </div>
           <div className="input-group">
-            <label htmlFor="contact">Contact Number</label>
+            <label htmlFor="phone_number">phone_number </label>
             <input
               type="text"
-              id="contact"
-              value={contact}
-              onChange={(e) => setContact(e.target.value)}
+              id="phone_number"
+              value={phone_number}
+              onChange={(e) => setphone_number(e.target.value)}
               required
-              pattern="^[1-9][0-9]{9}$" // Pattern for a 10-digit phone number
+              pattern="^[1-9][0-9]{9}$" // Validation for 10-digit phone number
             />
           </div>
           <div className="input-group">

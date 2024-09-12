@@ -1,16 +1,15 @@
-/* AdminSignUp.css */
-
-/* General page styling */
-.signup-page {
+/* Basic reset and styling specifically for the login page */
+.login-page {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100vh; /* Full viewport height */
     background-color: #f5f5f5;
+    /* display: flex;
+    padding-left: 200px; */
   }
   
-  /* Box styling for sign-up form */
-  .signup-box {
+  .login-box {
     background-color: white;
     padding: 20px 30px;
     border-radius: 10px;
@@ -20,27 +19,23 @@
     text-align: center;
   }
   
-  /* Title styling */
   h2 {
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
   }
   
-  /* Input group styling */
   .input-group {
     margin-bottom: 15px;
     text-align: left;
   }
   
-  /* Label styling */
   label {
     display: block;
     margin-bottom: 5px;
     color: #333;
   }
   
-  /* Input field styling */
   input {
     width: 100%;
     padding: 10px;
@@ -51,39 +46,37 @@
   
   input:focus {
     border-color: #698406;
-    outline: none;
+    outline: none; /* Remove default focus outline */
   }
   
-  /* Button styling */
-  button {
+  .login-button {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
     border: none;
-    background-color:#698406;
+    background-color: #698406;
     color: white;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
-  button:hover {
-    background-color:#698406;
+  .login-button:hover {
+    background-color: #698406;
   }
   
-  /* Login link styling */
-  .login-link {
+  .signup-link {
     margin-top: 15px;
     font-size: 14px;
     color: #333;
   }
   
-  .login-link a {
+  .signup-link a {
     color: #698406;
     text-decoration: none;
   }
   
-  .login-link a:hover {
+  .signup-link a:hover {
     text-decoration: underline;
   }
   

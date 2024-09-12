@@ -39,7 +39,7 @@
     margin: 0 8px; /* Spacing between buttons */
     border-radius: 6px;
     border: none;
-    background-color: #28a745; /* Green background */
+    background-color:#698406; /* Green background */
     color: white;
     font-size: 18px; /* Larger font for better readability */
     cursor: pointer;
@@ -47,6 +47,6 @@
   }
   
   .role-button:hover {
-    background-color: #218838; /* Darker green on hover */
+    background-color: #698406; /* Darker green on hover */
   }
   
