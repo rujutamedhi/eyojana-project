@@ -1,94 +1,109 @@
+/* navbar.css */
 
 .navbar {
-  height: 70px;
-  background-color: #f8f9fa; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 10px 20px;
+  box-shadow: 0 0 10px 0 rgba(17, 16, 16, 0.3);
+  width: 100%;
+  position: fixed; /* Fix header at the top */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure header is above other content */
 }
 
-.navbar-nav .nav-link {
-  color: #99b909 !important; 
-  font-size: 18px;
-  font-weight: 500;
-  transition: color 0.3s ease, transform 0.3s ease; 
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  margin-left: 10px;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.nav-links ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav-links li {
+  margin: 0 10px;
+}
+
+.nav-links a {
+  color: rgb(8, 7, 7);
+  text-decoration: none;
+  padding: 10px;
+  font-size: large;
 }
 
 
-.navbar-nav .nav-link:hover {
-  color: #1f2705 !important; /* Change color on hover */
-  transform: scale(1.1); /* Slight zoom on hover */
-}
 
-/* Navbar brand styling */
-.navbar-brand {
-  color: #609713 !important;
-  font-weight: bold;
-  font-family: 'Cambria', serif;
-}
-
-/* Inline-block class for logos */
-.d-inline-block {
-  font-weight: 7000;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-/* Navbar responsiveness for small devices */
-@media (max-width: 991px) {
-  .navbar-nav {
-      text-align: center;
-  }
-
-  .navbar-nav .nav-item {
-      margin: 10px 0; /* Add spacing between items on smaller screens */
-  }
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .navbar {
-      height: auto;
-  }
-
-  .navbar-nav .nav-link {
-      font-size: 16px; /* Slightly smaller font on phones */
-  }
-  
-  .navbar-brand img {
-      width: 100px; /* Reduce logo size on mobile */
-  }
-}
-
-/* iPad responsiveness */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .navbar-nav .nav-link {
-      font-size: 17px; /* Adjust font size for tablets */
-  }
-  
-  .navbar-brand img {
-      width: 110px; /* Adjust logo size */
-  }
-}
-
-/* Hover effect for brand logo */
-.navbar-brand:hover img {
-  opacity: 0.8; /* Adds slight transparency on hover */
-  transition: opacity 0.3s ease;
-}
-
-/* Toggler button styling */
-.navbar-toggler {
+.btn {
+  background-color: #0d2f19;
+  color: #ffffff;
+  width: 120px;
+  height: 35px;
   border: none;
-  outline: none;
+  border-radius: 12px;
+  font-size: large;
+  text-align: center;
+  line-height: 35px;
+  cursor: pointer;
 }
 
-.navbar-toggler:focus {
-  box-shadow: none;
+.btn:hover {
+  color: rgb(34, 167, 71);
 }
 
-.navbar-toggler-icon {
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"%3E%3Cpath stroke="rgba%280,0,0, 0.7%29" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+/* Responsive Styles */
+@media (max-width: 568px) {
+  .navbar-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-links ul {
+    display: block;
+    text-align: center;
+  }
+
+  .nav-links li {
+    margin: 10px 0;
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 10px;
+  }
 }
 
-/* Smooth transition for collapsible navbar */
-.collapse {
-  transition: all 0.5s ease;
+@media (max-width: 480px) {
+  .logo img {
+    width: 25px; /* Adjust logo size for smaller screens */
+    height: 20px;
+  }
+
+  .btn {
+    font-size: medium; /* Adjust button font size for smaller screens */
+  }
 }
