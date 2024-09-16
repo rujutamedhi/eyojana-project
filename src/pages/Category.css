@@ -1,11 +1,51 @@
-.container {
-    background-color: #ebf2cb;
-}
-.card-body .btn {
-    background-color: #677916;
-}
+.btn20{
+    height: 200px;
+    width: 100%;
+    text-align: left;
+    padding: 20px;
+    color: rgb(16, 77, 57);
+    background-color: #ffffff;
+    font-family: 'Times New Roman', Times, serif;
+    border-width: 0.5px;
+    border-color: #0d2f19;
+    margin: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), 4px 4px 10px rgba(0, 0, 0, 0.1);
+  } 
+  
+   .btn20:hover{
+    background-color: #f2fff2;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5), 6px 6px 15px rgba(0, 0, 0, 0.3);
+  }
+  .btn21{
+    display: grid;
+  justify-content: center;
+  position: relative;
+  
+  }
+
 .card-title{
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-   font-weight: 300;
-   font-style: bold;
+    height: 48px;
+    text-align: center;
+}
+.btn23{
+    width: 162px;
+    background-color: #22a747;
+    color: #e2f9eb;
+    border-width: 1px;
+    border-radius: 20px;
+    text-decoration: none;
+    border-color: #ffffff;
+    margin: auto;
+  text-align: center;
+  display: grid;
+  height: 33px;
+  align-content: center;
+  }
+  .btn23:hover{
+     background-color: #10642c;
+     color: #f4f8f5;
+  }
+  .col-md-3 {
+    flex: 0 0 auto;
+    width: 25%;
 }

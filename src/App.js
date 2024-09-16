@@ -14,8 +14,8 @@ import Category from './pages/Category';
 import ApprovedSchemes from './pages/ApprovedSchemes';
 import Admin from './pages/admin';
 import DocumentsRequired from './pages/DocumentsRequired';
-
-
+import CategoryDetail from './pages/CategoryDetail';
+import SchemeDetail from './pages/Schemedetail';
 // Move useLocation inside a separate component inside the Router
 const MainApp = () => {
   const location = useLocation(); // Now this is inside Router context
@@ -42,6 +42,8 @@ const MainApp = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/adminhome" element={<Admin />} />
         <Route path="/documents-required" element={<DocumentsRequired />} />
+        <Route path="/category/:category" element={<CategoryDetail />} />{/* Route for category details */}
+        <Route path='/schemedetail' element={<SchemeDetail/>}/>
       </Routes>
     </div>
   );
