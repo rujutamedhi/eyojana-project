@@ -4,23 +4,38 @@ import './DocumentsRequired.css'; // Styling file
 const DocumentsRequired = () => {
   const [formData, setFormData] = useState({
     identityProofType: '',
-    identityProofImage: null,
+    identityProofFile: null,
+    identityProofPreview: '',
     photo: null,
-    casteCertificateImage: null,
-    incomeCertificateImage: null,
+    photoPreview: '',
+    casteCertificateFile: null,
+    casteCertificatePreview: '',
+    incomeCertificateFile: null,
+    incomeCertificatePreview: '',
     additionalDocuments: [], // Array to store multiple additional documents
   });
 
   const [additionalDocumentFields, setAdditionalDocumentFields] = useState([
-    { type: '', file: null }
+    { type: '', file: null, preview: '' }
   ]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
+
     if (files) {
+      const file = files[0];
+      let previewUrl = '';
+      // For PDF files, no preview (could use a PDF icon)
+      if (file.type === 'application/pdf') {
+        previewUrl = 'pdf-icon'; // You can replace this with an actual image URL for a PDF icon
+      } else {
+        previewUrl = URL.createObjectURL(file); // For image preview
+      }
+
       setFormData({
         ...formData,
-        [name]: files[0],
+        [name]: file,
+        [`${name}Preview`]: previewUrl,
       });
     } else {
       setFormData({
@@ -32,16 +47,33 @@ const DocumentsRequired = () => {
 
   const handleAdditionalDocumentChange = (index, field, value) => {
     const newFields = [...additionalDocumentFields];
-    newFields[index][field] = value;
+
+    if (field === 'file') {
+      const file = value;
+      let previewUrl = '';
+
+      if (file.type === 'application/pdf') {
+        previewUrl = 'pdf-icon'; // PDF preview icon
+      } else {
+        previewUrl = URL.createObjectURL(file); // For image preview
+      }
+
+      newFields[index][field] = file;
+      newFields[index]['preview'] = previewUrl;
+    } else {
+      newFields[index][field] = value;
+    }
+
     setAdditionalDocumentFields(newFields);
   };
 
   const handleAddMoreDocuments = () => {
-    setAdditionalDocumentFields([...additionalDocumentFields, { type: '', file: null }]);
+    setAdditionalDocumentFields([...additionalDocumentFields, { type: '', file: null, preview: '' }]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Here, the formData and additionalDocumentFields will be submitted
     console.log({
       ...formData,
       additionalDocuments: additionalDocumentFields,
@@ -51,7 +83,7 @@ const DocumentsRequired = () => {
 
   return (
     <div className="form-container">
-      <h2>Applying for the scheme</h2>
+      <h2>Applying for the Scheme</h2>
       <form className="document-form" onSubmit={handleSubmit}>
         
         {/* Identity Proof Dropdown */}
@@ -70,16 +102,22 @@ const DocumentsRequired = () => {
           </select>
         </label>
 
-        {/* Image upload for Identity Proof */}
+        {/* File upload for Identity Proof (Image or PDF) */}
         <label>
-          Upload Identity Proof Image:
+          Upload Identity Proof (Image or PDF):
           <input
             type="file"
-            name="identityProofImage"
-            accept="image/*"
+            name="identityProofFile"
+            accept="image/*,application/pdf"
             onChange={handleChange}
             required
           />
+          {formData.identityProofPreview && formData.identityProofPreview !== 'pdf-icon' && (
+            <img src={formData.identityProofPreview} alt="Identity Proof Preview" style={{ width: '100px' }} />
+          )}
+          {formData.identityProofPreview === 'pdf-icon' && (
+            <div><span>PDF Uploaded: {formData.identityProofFile.name}</span></div>
+          )}
         </label>
 
         {/* Photo of the applicant */}
@@ -92,30 +130,45 @@ const DocumentsRequired = () => {
             onChange={handleChange}
             required
           />
+          {formData.photoPreview && (
+            <img src={formData.photoPreview} alt="Applicant Photo Preview" style={{ width: '100px' }} />
+          )}
         </label>
 
-        {/* Caste Certificate Image Upload */}
+        {/* Caste Certificate File Upload (Image or PDF) */}
         <label>
-          Upload Caste Certificate:
+          Upload Caste Certificate (Image or PDF):
           <input
             type="file"
-            name="casteCertificateImage"
-            accept="image/*"
+            name="casteCertificateFile"
+            accept="image/*,application/pdf"
             onChange={handleChange}
             required
           />
+          {formData.casteCertificatePreview && formData.casteCertificatePreview !== 'pdf-icon' && (
+            <img src={formData.casteCertificatePreview} alt="Caste Certificate Preview" style={{ width: '100px' }} />
+          )}
+          {formData.casteCertificatePreview === 'pdf-icon' && (
+            <div><span>PDF Uploaded: {formData.casteCertificateFile.name}</span></div>
+          )}
         </label>
 
-        {/* Income Certificate Image Upload */}
+        {/* Income Certificate File Upload (Image or PDF) */}
         <label>
-          Upload Income Certificate:
+          Upload Income Certificate (Image or PDF):
           <input
             type="file"
-            name="incomeCertificateImage"
-            accept="image/*"
+            name="incomeCertificateFile"
+            accept="image/*,application/pdf"
             onChange={handleChange}
             required
           />
+          {formData.incomeCertificatePreview && formData.incomeCertificatePreview !== 'pdf-icon' && (
+            <img src={formData.incomeCertificatePreview} alt="Income Certificate Preview" style={{ width: '100px' }} />
+          )}
+          {formData.incomeCertificatePreview === 'pdf-icon' && (
+            <div><span>PDF Uploaded: {formData.incomeCertificateFile.name}</span></div>
+          )}
         </label>
 
         {/* Additional Documents Section */}
@@ -142,17 +195,23 @@ const DocumentsRequired = () => {
               </select>
             </label>
 
-            {/* Image upload for Additional Document */}
+            {/* File upload for Additional Document (Image or PDF) */}
             <label>
-              Upload {field.type} Image:
+              Upload {field.type} (Image or PDF):
               <input
                 type="file"
-                accept="image/*"
+                accept="image/*,application/pdf"
                 onChange={(e) =>
                   handleAdditionalDocumentChange(index, 'file', e.target.files[0])
                 }
                 required
               />
+              {field.preview && field.preview !== 'pdf-icon' && (
+                <img src={field.preview} alt={`${field.type} Preview`} style={{ width: '100px' }} />
+              )}
+              {field.preview === 'pdf-icon' && (
+                <div><span>PDF Uploaded: {field.file.name}</span></div>
+              )}
             </label>
           </div>
         ))}
