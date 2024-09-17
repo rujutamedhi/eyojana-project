@@ -1,14 +1,19 @@
+require('dotenv').config(); 
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb+srv://ShravaniAnilPatil:<password>@cluster0.tspoa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+    const mongoURI = process.env.MONGODB_URI; 
+    if (!mongoURI) {
+      throw new Error('MONGODB_URI is not defined in environment variables');
+    }
+    await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
     console.log('MongoDB connected successfully to Atlas');
   } catch (err) {
-    console.error('Error connecting to MongoDB Atlas', err.message);
+    console.error('Error connecting to MongoDB Atlas:', err.message);
     process.exit(1);
   }
 };

@@ -1,0 +1,22 @@
+{
+  "name": "react-router-dom",
+  "version": "1.0.0",
+  "description": "1",
+  "main": "y",
+  "scripts": {
+    "test": "1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "4"
+  },
+  "keywords": [
+    "4"
+  ],
+  "author": "5",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
