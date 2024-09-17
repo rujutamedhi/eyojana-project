@@ -2,15 +2,13 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/eyojana1',{
+    await mongoose.connect('mongodb+srv://ShravaniAnilPatil:Shweta2509@cluster0.tspoa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      // useCreateIndex: true,
-      // useFindAndModify: false
     });
-    console.log('MongoDB connected successfully');
+    console.log('MongoDB connected successfully to Atlas');
   } catch (err) {
-    console.error('Error connecting to MongoDB', err.message);
+    console.error('Error connecting to MongoDB Atlas', err.message);
     process.exit(1);
   }
 };

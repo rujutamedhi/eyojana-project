@@ -43,7 +43,7 @@ function Home() {
       <span class="visually-hidden">Next</span>
     </button></div>
     <section id="about" >
-      <div className='scheme' align='center'>
+      <div className='scheme1' align='center'>
           <p>Welcome to E-yojana, your one-stop destination for discovering
              and applying for government schemes tailored to your needs. 
              Our platform is designed to simplify access to a wide range of government
@@ -155,7 +155,7 @@ function Home() {
 
       {/* Footer Bottom */}
       <div className="footer-bottom">
-        <p>© 2024 myScheme. All rights reserved.</p>
+        <p>© 2024 E-Yojana. All rights reserved.</p>
       </div>
     </footer>
   </div>

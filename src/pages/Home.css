@@ -6,7 +6,7 @@
 
 /* Button styles */
 .schbtn {
-  background-color: #0d2f19;
+  background-color: #779307;
   color: white;
   width: 400px;
   border-radius: 8px;
@@ -15,11 +15,11 @@
 }
 
 .schbtn:hover {
-  background-color: #146138;
+  background-color: #719a10;
 }
 
 /* Scheme Section */
-.scheme {
+.scheme1{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,7 +28,7 @@
   padding: 40px;
   margin: 40px auto;
   border-width: 1px;
-  box-shadow: 10px 10px #0d2f19;
+  box-shadow: 10px 10px #547b02;
   border-radius: 8px;
   background-color: #f1f4de;
   color: #0d2f19;
