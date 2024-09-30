@@ -53,7 +53,13 @@ const CategoryDetail = () => {
           items.map((item, index) => (
             <li className="list-group-item scheme " key={index}>
               <div className="scheme_name">{item}</div>
-              <Link to={"/schemedetail"} className="detail btn-primary"> More Info</Link>
+              <Link 
+                to="/schemedetail" 
+                state={{ selectedItem: item }}  // Pass the selected item
+                className="detail btn-primary"
+              >
+                More Info
+              </Link>
             </li>
           ))
         ) : (

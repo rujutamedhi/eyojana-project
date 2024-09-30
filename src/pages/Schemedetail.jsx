@@ -1,15 +1,26 @@
-import { Link } from 'react-router-dom';
-// const SchemeDetail = () => {
-    
-// <Link to={"/DocumentsRequired"}>Fill Form</Link>
-// }
-// export default SchemeDetail;
-import React from 'react'
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 
-export default function Schemedetail() {
+const SchemeDetail = () => {
+  const location = useLocation();
+
+  // Ensure state is passed correctly
+  const { selectedItem } = location.state || {};  
+console.log(selectedItem)
   return (
-    <div>
-      <Link to={"/documents-required"}>Fill Form</Link>
+    <div className="container mt-4">
+      
+      {selectedItem ? (
+        <div>
+          <h2> {selectedItem}</h2>
+        </div>
+      ) : (
+        <p>No scheme selected.</p>
+      )}
+      
+      
     </div>
-  )
+  );
 }
+
+export default SchemeDetail;

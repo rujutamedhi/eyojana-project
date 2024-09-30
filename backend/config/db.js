@@ -1,16 +1,19 @@
+require('dotenv').config(); 
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/eyojana1',{
+    const mongoURI = process.env.MONGODB_URI; 
+    if (!mongoURI) {
+      throw new Error('MONGODB_URI is not defined in environment variables');
+    }
+    await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      // useCreateIndex: true,
-      // useFindAndModify: false
     });
-    console.log('MongoDB connected successfully');
+    console.log('MongoDB connected successfully to Atlas');
   } catch (err) {
-    console.error('Error connecting to MongoDB', err.message);
+    console.error('Error connecting to MongoDB Atlas:', err.message);
     process.exit(1);
   }
 };
