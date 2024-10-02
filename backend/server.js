@@ -37,23 +37,26 @@ const app = express();
 
 // Connect to the database
 connectDB();
-
+console.log("test1")
 // Middleware
 app.use(cors());
+console.log("test2")
 app.use(bodyParser.json());
-
+console.log("test3")
 // Routes
 const adminRoutes = require('./routes/admin');
 const userRoutes = require('./routes/auth');
 const schemeRoutes = require('./routes/scheme');
 // const schemeDocumentsRoutes = require('./routes/schemeDocuments'); 
-
+console.log("test4")
 // Use routes
 app.use('/api/admin', adminRoutes);
+console.log("test6")
 app.use('/api/auth', userRoutes);
+console.log("test7")
 app.use('/api/schemes', schemeRoutes);
 // app.use('/api/documents', schemeDocumentsRoutes); 
-
+console.log("test5")
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
