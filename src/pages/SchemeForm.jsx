@@ -5,8 +5,8 @@ const SchemeForm = () => {
   const [formData, setFormData] = useState({
     schemename: "",
     user_id: "",
+    status:"pending",
     email: "",
-    status: "",
     category: "",
     documents: [],
   });
