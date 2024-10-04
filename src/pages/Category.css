@@ -3,7 +3,7 @@
     width: 100%;
     text-align: left;
     padding: 20px;
-    color: rgb(16, 77, 57);
+    color: #698406;
     background-color: #ffffff;
     font-family: 'Times New Roman', Times, serif;
     border-width: 0.5px;
@@ -29,7 +29,7 @@
 }
 .btn23{
     width: 162px;
-    background-color: #22a747;
+    background-color: #698406;
     color: #e2f9eb;
     border-width: 1px;
     border-radius: 20px;
@@ -42,7 +42,7 @@
   align-content: center;
   }
   .btn23:hover{
-     background-color: #10642c;
+     background-color: #506504;
      color: #f4f8f5;
   }
   .col-md-3 {

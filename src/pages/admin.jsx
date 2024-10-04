@@ -1,8 +1,26 @@
 import React from "react";
 import './admin.css';
-import img1 from '../images/admin.png';
+import img1 from '../images/adminhome.png';
 import addnew from '../images/addnew.png';
 import { Link } from 'react-router-dom'; 
+
+const categories = [
+    { text: "Agriculture, Rural & Environment" },
+    { text: "Banking, Financial Services and Insurance"},
+    { text: "Business & Entrepreneurship" },
+    { text: "Education & Learning"},
+    { text: "Health & Wellness"},
+    { text: "Housing & Shelter"},
+    { text: "Public Safety, Law & Justice"},
+    { text: "Science, IT & Communications"},
+    { text: "Skills & Employment"},
+    { text: "Social welfare & Empowerment"},
+    { text: "Sports & Culture" },
+    { text: "Transport & Infrastructure"},
+    { text: "Travel & Tourism" },
+    { text: "Utility & Sanitation"},
+    { text: "Women and Child"}
+];
 
 function Admin() {
     return (
@@ -23,29 +41,27 @@ function Admin() {
             <div>
                 <img src={img1} alt="Admin" className="adm" />
             </div>
-
+<br>
+</br>
             <div className="sch">
-                <h1>Applications For Schemes:</h1>
-                <div>
-                    <button className="btn2"><h3>Agriculture, Rural & Environment</h3></button>
-                    <button className="btn2"><h3>Banking, Financial Services and Insurance</h3></button>
-                    <button className="btn2"><h3>Business & Entrepreneurship</h3></button>
-                    <button className="btn2"><h3>Education and Learning</h3></button>
-                    <button className="btn2"><h3>Health & Wellness</h3></button>
-                    <button className="btn2"><h3>Infrastructure & Transportation</h3></button>
-                    <button className="btn2"><h3>Science & Technology</h3></button>
-                    <button className="btn2"><h3>Tourism & Culture</h3></button>
+                <h3 align="center">Applications For Schemes:</h3>
+                <div className="cat">
+                    {categories.map((category, index) => (
+                        <button key={index} className="btn2">
+                            
+                            <h4>{category.text}</h4>
+                        </button>
+                    ))}
                 </div>
             </div>
 
-            <div className="addNew">
-                <img src={addnew} alt="Add New Scheme" className="newSch" />
-                <div>
-                    <button className="btn3"><h2>Add New Schemes</h2></button>
+            
+                
+                <div className="addNew">
+                    <button className="btn3"><h5>Add New Schemes</h5></button>
                 </div>
-                <button><Link to="/documents-required">Accepted</Link></button>
-                <li><Link to="/accepted">Accepted</Link></li>
-            </div>
+                
+         
         </div>
     );
 }

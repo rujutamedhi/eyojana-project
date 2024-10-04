@@ -4,8 +4,8 @@ import carousel1 from '../images/kisang.png';
 import carousel2 from '../images/2.png';
 import '../pages/Home.css'; 
 import about from '../images/video.mp4';
-import applysteps from '../images/applysteps.png';
-import faq from '../images/faq.png';
+import applysteps from '../images/Steps.png';
+import faq from '../images/faq3.png';
 import { Link } from 'react-router-dom';
 
 function Home() {
@@ -53,8 +53,10 @@ function Home() {
             <p>
             E-Yojana is here to help you take full advantage of the resources and support available to you, 
             enhancing your well-being and contributing to national progress.
+            <Link to="/adminhome">Sign up</Link>
             </p>
-            <button className='schbtn'>Find Schemes </button>
+            <Link to = "/category">
+            <button className='schbtn'>Find Schemes </button></Link>
             </div>
             
     </section>

@@ -16,6 +16,7 @@ import Admin from './pages/admin';
 import DocumentsRequired from './pages/DocumentsRequired';
 import CategoryDetail from './pages/CategoryDetail';
 import SchemeDetail from './pages/Schemedetail';
+import { AuthProvider } from './components/AuthContext'; 
 // Move useLocation inside a separate component inside the Router
 const MainApp = () => {
   const location = useLocation(); // Now this is inside Router context
@@ -51,9 +52,11 @@ const MainApp = () => {
 
 const App = () => {
   return (
+    <AuthProvider>
     <Router>
       <MainApp /> {/* Use the MainApp component inside Router */}
     </Router>
+    </AuthProvider>
   );
 }
 

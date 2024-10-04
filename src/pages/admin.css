@@ -80,10 +80,11 @@ li a:hover {
 
 /* Section Styling */
 .addNew {
-  background-color: #e2f9eb;
+  background-color: #ffffff;
   margin: 40px 0;
   padding: 30px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   border-radius: 15px;
@@ -97,6 +98,7 @@ li a:hover {
 
 .btn3 {
   width: 250px;
+  height: 50px;
   background-color: #78a722;
   color: white;
   border: none;
@@ -116,4 +118,8 @@ li a:hover {
 h1, h2 {
   font-family: 'Arial', sans-serif;
   color: #010e09;
+}
+
+.cat{
+  margin-left: 2rem;
 }

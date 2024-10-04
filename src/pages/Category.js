@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Papa from 'papaparse';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
-import "./Category.css"
+import { Link, useNavigate  } from 'react-router-dom';
+import "./Category.css";
+import { useAuth } from '../components/AuthContext'; 
 const Category = () => {
   const [categories, setCategories] = useState([]);
-
+  
   useEffect(() => {
     const csvFilePath = '/scraped_data.csv'; // Path relative to the public directory
     
@@ -47,7 +48,7 @@ const Category = () => {
                 <img src={category.link} className="card-img-top" alt={category.title} style={{ height: '50px' }} />
                 <div className="card-body">
                   <h5 className="card-title">{category.title}</h5>
-                  <Link to={`/category/${encodeURIComponent(category.title)}`} className="btn23 btn-primary">View Schemes</Link>
+                  <Link to={`/category/${encodeURIComponent(category.title)}`} className="btn23 btn-primary" >View Schemes</Link>
                   
                 </div>
               </div>
