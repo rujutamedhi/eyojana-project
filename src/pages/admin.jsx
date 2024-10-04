@@ -44,7 +44,9 @@ function Admin() {
                     <button className="btn3"><h2>Add New Schemes</h2></button>
                 </div>
                 <button><Link to="/documents-required">Accepted</Link></button>
+                <button><Link to="/schemeform">Scheme Form</Link></button>
                 <li><Link to="/accepted">Accepted</Link></li>
+                <li><Link to="/appliedschemes">Applied</Link></li>
             </div>
         </div>
     );

@@ -10,7 +10,7 @@ function Navbar() {
       <div className="navbar-content">
         <div className="logo">
           <a className="navbar-brand" href="#s">
-            <img src={logo} alt="Logo" width="30" height="35" className="d-inline-block align-text-top"/>
+            <img id="emblem" src={logo} alt="Logo"  className="d-inline-block align-text-top"/>
             <img src={eyojana} alt="Logo" width="120" height="30" className="d-inline-block align-text-top ms-3"/>
           </a>
         </div>

@@ -10,7 +10,10 @@
   left: 0;
   z-index: 1000; /* Ensure header is above other content */
 }
-
+.logo #emblem{
+  height: 65px;
+  width: auto;
+}
 .navbar-content {
   display: flex;
   justify-content: space-between;

@@ -1,0 +1,94 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e9f7f7; /* Light blue background */
+    margin: 0;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #003135; /* Dark green color */
+    margin-bottom: 30px;
+    font-size: 2.5em;
+  }
+  
+  .schemes-container {
+    max-width: 1200px; /* Max width for the container */
+    margin: auto; /* Center the container */
+  }
+  
+  .cards-wrapper {
+    display: grid; /* Use CSS Grid for layout */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive card layout */
+    gap: 20px; /* Space between cards */
+  }
+  
+  .scheme-card {
+    background: #ffffff; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    transition: transform 0.2s, box-shadow 0.2s; /* Animation on hover */
+    position: relative; /* Positioning for hover effect */
+  }
+  
+  .scheme-card:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+  }
+  
+  .scheme-title {
+    color: #024950; /* Darker title color */
+    margin-bottom: 10px;
+  }
+  
+  .scheme-status, .scheme-category, .scheme-email {
+    margin: 5px 0; /* Margin for scheme info */
+    color: #333; /* Dark gray text */
+  }
+  
+  .documents-list {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .document-item {
+    display: flex; /* Flexbox for document items */
+    align-items: center; /* Center align vertically */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px; /* Padding inside */
+    margin: 10px 0; /* Space between documents */
+    transition: background-color 0.2s; /* Transition for hover */
+  }
+  
+  .document-item:hover {
+    background-color: #f9f9f9; /* Light gray on hover */
+  }
+  
+  img {
+    border-radius: 4px; /* Rounded corners for images */
+    margin-left: 15px; /* Space between text and image */
+    width: 80px; /* Fixed width for images */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
+  /* Responsive design */
+  @media (max-width: 600px) {
+    body {
+      padding: 10px; /* Reduced padding */
+    }
+  
+    h1 {
+      font-size: 2em; /* Smaller heading */
+    }
+  
+    .scheme-card {
+      padding: 15px; /* Reduced padding */
+    }
+  
+    img {
+      width: 60px; /* Smaller images */
+    }
+  }
+  
