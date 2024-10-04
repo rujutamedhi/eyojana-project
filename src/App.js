@@ -18,10 +18,8 @@ import CategoryDetail from './pages/CategoryDetail';
 import SchemeDetail from './pages/Schemedetail';
 
 import { AuthProvider } from './components/AuthContext'; 
-
 import SchemeForm from './pages/SchemeForm';
 import AppliedSchemes from './pages/AppliedSchemes';
-
 // Move useLocation inside a separate component inside the Router
 const MainApp = () => {
   const location = useLocation(); // Now this is inside Router context
