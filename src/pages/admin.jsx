@@ -1,6 +1,6 @@
 import React from "react";
 import './admin.css';
-import img1 from '../images/admin.png';
+import img1 from '../images/adminhome.png';
 import addnew from '../images/addnew.png';
 import { Link } from 'react-router-dom'; 
 
@@ -49,22 +49,22 @@ function Admin() {
                     {categories.map((category, index) => (
                         <button key={index} className="btn2">
                             
-                            <h3>{category.text}</h3>
+                            <h4>{category.text}</h4>
                         </button>
                     ))}
                 </div>
             </div>
 
-            <div className="addNew">
-                <img src={addnew} alt="Add New Scheme" className="newSch" />
-                <div>
-                    <button className="btn3"><h2>Add New Schemes</h2></button>
+            
+                
+                <div className="addNew">
+                    <button className="btn3"><h5>Add New Schemes</h5></button>
                 </div>
-                <button><Link to="/documents-required">Documents Required</Link></button>
-                <li><Link to="/accepted">Accepted</Link></li>
-            </div>
+                
+         
         </div>
     );
 }
 
 export default Admin;
+
