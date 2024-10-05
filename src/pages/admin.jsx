@@ -2,7 +2,10 @@ import React from "react";
 import './admin.css';
 import img1 from '../images/adminhome.png';
 import addnew from '../images/addnew.png';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
+import { AuthProvider } from "../components/AuthContext";
+import { useAuth } from "../components/AuthContext";
+
 
 const categories = [
     { text: "Agriculture, Rural & Environment" },
@@ -34,7 +37,8 @@ function Admin() {
                         <li><Link to="/reverts">Reverts</Link></li>
                         <li><Link to="/accepted">Accepted</Link></li>
                     </div>
-                    <button className="btn">Sign out</button>
+                    <Link to="/">
+                    <button className="btn">Sign out</button></Link>
                 </ul>
             </header>
 
@@ -47,7 +51,8 @@ function Admin() {
                 <h3 align="center">Applications For Schemes:</h3>
                 <div className="cat">
                     {categories.map((category, index) => (
-                        <button key={index} className="btn2">
+                        
+                        <button key={index} className="btn2" >
                             
                             <h4>{category.text}</h4>
                         </button>

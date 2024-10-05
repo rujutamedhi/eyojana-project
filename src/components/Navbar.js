@@ -58,11 +58,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../images/logo.png'; 
 import './navbar.css'; 
 import eyojana from '../images/e-yojana.png';
+import { AuthProvider } from "../components/AuthContext";
+import { useAuth } from "../components/AuthContext";
 
 function Navbar() {
 
   const navigate = useNavigate(); // Hook for navigation in React Router
+  const { isLoggedIn } = useAuth();
+const { setIsLoggedIn } = useAuth();
 
+const handleLogout = () => {
+  // Clear the token and reset login state
+  localStorage.removeItem("authToken");
+ // localStorage.removeItem("Email");
+  setIsLoggedIn(false);
+  alert("are you sure you want to logout?")
+  navigate("/login"); // Redirect to login page after logout
+};
+
+  const logout = (setIsLoggedIn) =>{
+    setIsLoggedIn(false);
+  }
   const navigateToSection = (section) => {
     // If not on the home page, navigate to home page first
     if (window.location.pathname !== '/') {
@@ -97,9 +113,15 @@ function Navbar() {
         </div>
 
         <div className="nav-login">
-          <Link to="/login">
+          {!isLoggedIn?(<Link to="/login">
             <button id="loginbutton" className="btn">Login</button>
+          </Link>):(
+            <Link to="/">
+            <button id="loginbutton" onClick={handleLogout} className="btn">LogOut</button>
           </Link>
+          )}
+          
+          
         </div>
       </div>
     </nav>
