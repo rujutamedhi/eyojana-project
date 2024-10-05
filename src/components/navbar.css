@@ -34,6 +34,11 @@
   flex-wrap: wrap;
 }
 
+.nav-login {
+  margin-left: 420px; /* Pushes the login button to the right */
+}
+
+
 .nav-links ul {
   list-style-type: none;
   margin: 0;
@@ -88,6 +93,11 @@
   .nav-links ul {
     display: block;
     text-align: center;
+  }
+  .nav-login {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
   }
 
   .nav-links li {
