@@ -1,13 +1,20 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Create a context
+// Create the context
 const AuthContext = createContext();
 
-// Create a provider component
+// AuthProvider to wrap your app
 export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with actual login logic
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    // Check localStorage when app loads
+    const storedLoginStatus = localStorage.getItem('isLoggedIn');
+    return storedLoginStatus ? JSON.parse(storedLoginStatus) : false;
+  });
 
-  // Example: You can get login status from localStorage or a backend API
+  // Update localStorage when login state changes
+  useEffect(() => {
+    localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
@@ -16,7 +23,7 @@ export function AuthProvider({ children }) {
   );
 }
 
-// Custom hook to use the AuthContext
+// useAuth hook to access the context
 export function useAuth() {
   return useContext(AuthContext);
 }

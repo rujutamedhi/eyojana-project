@@ -16,12 +16,7 @@ import Admin from './pages/admin';
 import DocumentsRequired from './pages/DocumentsRequired';
 import CategoryDetail from './pages/CategoryDetail';
 import SchemeDetail from './pages/Schemedetail';
-<<<<<<< HEAD
 import { AuthProvider } from './components/AuthContext'; 
-=======
-import SchemeForm from './pages/SchemeForm';
-import AppliedSchemes from './pages/AppliedSchemes';
->>>>>>> fc4c396b071816d7eae01fa79d66506213cab1bd
 // Move useLocation inside a separate component inside the Router
 const MainApp = () => {
   const location = useLocation(); // Now this is inside Router context
@@ -50,9 +45,6 @@ const MainApp = () => {
         <Route path="/documents-required" element={<DocumentsRequired />} />
         <Route path="/category/:category" element={<CategoryDetail />} />{/* Route for category details */}
         <Route path='/schemedetail' element={<SchemeDetail/>}/>
-        <Route path='/schemeform' element={<SchemeForm/>}/>
-        <Route path='/appliedschemes' element={<AppliedSchemes/>}/>
-    
       </Routes>
     </div>
   );

@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Papa from 'papaparse';
-import { Link , useNavigate } from 'react-router-dom';
-import "./CategoryDetail.css";
-import { useAuth } from '../components/AuthContext'; 
-
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/AuthContext';
+import "./CategoryDetail.css"
 const CategoryDetail = () => {
+
+  const navigate = useNavigate();
   const { category } = useParams(); // Get the category from the URL parameter
   const [items, setItems] = useState([]);
   const { isLoggedIn } = useAuth();
-  const navigate = useNavigate();
   const handleMoreInfoClick = (e) => {
     if (!isLoggedIn) {
       e.preventDefault();  // Prevent navigation
       navigate('/login');  // Redirect to login page
-    }
-  };
-
+    }};
   useEffect(() => {
     const csvFilePath = '/scraped_texts.csv';
 
@@ -67,7 +65,7 @@ const CategoryDetail = () => {
                 to="/schemedetail" 
                 state={{ selectedItem: item }}  // Pass the selected item
                 className="detail btn-primary"
-                onClick={handleMoreInfoClick}
+                onClick={handleMoreInfoClick} 
               >
                 More Info
               </Link>

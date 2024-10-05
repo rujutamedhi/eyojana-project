@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import { AuthProvider } from "../components/AuthContext";
+import { useAuth } from "../components/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,7 +10,7 @@ const Login = () => {
   const [role, setRole] = useState("user"); // State to track user role (admin or user)
   const [message, setMessage] = useState(""); // State for error or success messages
   const navigate = useNavigate();
-
+  const { setIsLoggedIn } = useAuth();
   const handleLogin = async (event) => {
     event.preventDefault();
 
@@ -41,7 +43,7 @@ const Login = () => {
         // If login is successful
         localStorage.setItem("authToken", data.authToken);
         setMessage(`${role.charAt(0).toUpperCase() + role.slice(1)} login successful! Redirecting...`);
-
+        setIsLoggedIn(true);
         setTimeout(() => {
           if (role === "admin") {
             navigate("/adminhome"); // Redirect to the admin page for admins

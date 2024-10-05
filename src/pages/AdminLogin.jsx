@@ -7,6 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(""); // State for error or success messages
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -34,9 +35,17 @@ const Login = () => {
       if (response.ok) {
         // If login is successful
         localStorage.setItem("authToken", data.authToken);
-        setMessage("Login successful! Redirecting to Home...");
+        localStorage.setItem("userEmail", email); // Store the email in localStorage
+        setMessage(`${role.charAt(0).toUpperCase() + role.slice(1)} login successful! Redirecting...`);
+        
+        setIsLoggedIn({ status: true, email: email }); // Update state to store login status and email
+        
         setTimeout(() => {
-          navigate("/"); // Redirect to dashboard after 2 seconds
+          if (role === "admin") {
+            navigate("/adminhome"); // Redirect to the admin page for admins
+          } else {
+            navigate("/"); // Redirect to homepage for users
+          }
         }, 2000);
       } else {
         // Handle specific login errors
@@ -48,6 +57,7 @@ const Login = () => {
           setMessage("Login failed. Please try again.");
         }
       }
+      
     } catch (error) {
       setMessage("An error occurred while logging in. Please try again later.");
       console.error("Login error:", error);
