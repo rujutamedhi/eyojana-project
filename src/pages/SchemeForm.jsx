@@ -113,25 +113,28 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/AuthContext';
+
 const SchemeForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { schemeName } = location.state || {};
+  const { email } = useAuth(); // Access email from context
+  console.log("****");
+console.log(email);
   const [formData, setFormData] = useState({
     schemename: schemeName || "",
     user_id: "",
-    email: "",
+    email: email || "", // Use the email from context
     status: "pending",
     category: "",
     documents: [], // Array to hold document objects
   });
 
-  // Handler for input changes in the main form
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handler for adding a new document input field
   const addDocument = () => {
     setFormData({
       ...formData,
@@ -139,7 +142,6 @@ const SchemeForm = () => {
     });
   };
 
-  // Handler for updating document name or file
   const handleDocumentChange = (index, e) => {
     const updatedDocuments = [...formData.documents];
     if (e.target.type === "file") {
@@ -150,7 +152,6 @@ const SchemeForm = () => {
     setFormData({ ...formData, documents: updatedDocuments });
   };
 
-  // Form submission handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
@@ -174,16 +175,17 @@ const SchemeForm = () => {
         },
       });
       console.log("Response:", res.data);
+      // Navigate or show success message
     } catch (err) {
       console.error("Error uploading files:", err.response?.data || err.message);
+      // Optionally set an error state to show in the UI
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-      <h2>Apply for {schemeName}</h2> 
-        
+        <h2>Apply for {schemeName}</h2>
       </div>
       <div>
         <label>User ID:</label>
@@ -200,9 +202,10 @@ const SchemeForm = () => {
         <input
           type="email"
           name="email"
-          value={formData.email}
+          value={email}
           onChange={handleInputChange}
           required
+          readOnly // Optional: make the email field read-only if you don't want it to be edited
         />
       </div>
       <div>
