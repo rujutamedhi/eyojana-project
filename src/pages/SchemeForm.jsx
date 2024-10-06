@@ -183,7 +183,7 @@ console.log(email);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} action="/send-email" method="POST">
       <div>
         <h2>Apply for {schemeName}</h2>
       </div>
