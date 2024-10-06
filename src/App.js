@@ -16,22 +16,26 @@ import Admin from './pages/admin';
 import DocumentsRequired from './pages/DocumentsRequired';
 import CategoryDetail from './pages/CategoryDetail';
 import SchemeDetail from './pages/Schemedetail';
+
+
 import { AuthProvider } from './components/AuthContext'; 
 import SchemeForm from './pages/SchemeForm';
 import AppliedSchemes from './pages/AppliedSchemes';
-// import ApplicationDetail from './pages/ApplicationDetail';
+import AdminNav from './components/adminNav';
 
 // Move useLocation inside a separate component inside the Router
 const MainApp = () => {
   const location = useLocation(); // Now this is inside Router context
-
+  const isAdminPage = location.pathname.includes('/adminhome'); 
   // List of paths where the Navbar should not be displayed
   const hideNavbarRoutes = ['/adminhome'];
 
   return (
     <div>
       {/* Conditionally render the Navbar */}
-      {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+      {!hideNavbarRoutes.includes(location.pathname) && (
+        isAdminPage ? <AdminNav /> : <Navbar />
+      )}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -49,10 +53,7 @@ const MainApp = () => {
         <Route path="/documents-required" element={<DocumentsRequired />} />
         <Route path="/category/:category" element={<CategoryDetail />} />{/* Route for category details */}
         <Route path='/schemedetail' element={<SchemeDetail/>}/>
-        <Route path='/schemeform' element={<SchemeForm/>} />
-        <Route path='/appliedschemes' element={<AppliedSchemes/>}/>
-
-  
+        <Route path="/adminhome/notifications" element={<HowItWorks />} />
       </Routes>
     </div>
   );
