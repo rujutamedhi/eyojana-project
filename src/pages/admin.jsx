@@ -49,11 +49,6 @@ function Admin() {
                     ))}
                 </div>
             </div>
-            <div className="addNew">
-                    <button className="btn3"><h5>Add New Schemes</h5></button>
-                </div>
-                
-         
         </div>
     );
 }

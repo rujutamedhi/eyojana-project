@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
-import Faqs from './pages/Faqs';
-import HowItWorks from './pages/HowItWorks';
 import ContactUs from './pages/ContactUs';
 import RoleSelection from "./pages/RoleSelection";
 import AdminSignUp from './pages/AdminSignUp';
@@ -20,7 +18,6 @@ import { AuthProvider } from './components/AuthContext';
 import SchemeForm from './pages/SchemeForm';
 import AppliedSchemes from './pages/AppliedSchemes';
 
-// Move useLocation inside a separate component inside the Router
 const MainApp = () => {
   const location = useLocation(); // Now this is inside Router context
 
@@ -36,8 +33,6 @@ const MainApp = () => {
         <Route path="/" element={<Home />} />
         <Route path="/category" element={<Category />} />
         <Route path="/about" element={<About />} />
-        <Route path="/faqs" element={<Faqs />} />
-        <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/approvedSchemes" element={<ApprovedSchemes />} />
         <Route path="/role-selection" element={<RoleSelection />} />
