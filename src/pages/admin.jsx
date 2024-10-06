@@ -1,10 +1,10 @@
 import React from "react";
 import './admin.css';
 import img1 from '../images/adminhome.png';
-import addnew from '../images/addnew.png';
+// import addnew from '../images/addnew.png';
 import { Link } from 'react-router-dom';
-import { AuthProvider } from "../components/AuthContext";
-import { useAuth } from "../components/AuthContext";
+// import { AuthProvider } from "../components/AuthContext";
+// import { useAuth } from "../components/AuthContext";
 
 
 const categories = [
@@ -31,8 +31,8 @@ function Admin() {
             <header>
                 <ul>
                     <div style={{ display: "flex" }}>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/applications">All Applications</Link></li>
+                        <li><Link to="/lll">Home</Link></li>
+                        <li><Link to="/appliedschemes">All Applications</Link></li>
                         <li><Link to="/notifications">Notifications</Link></li>
                         <li><Link to="/reverts">Reverts</Link></li>
                         <li><Link to="/accepted">Accepted</Link></li>
@@ -59,10 +59,7 @@ function Admin() {
                     ))}
                 </div>
             </div>
-
-            
-                
-                <div className="addNew">
+            <div className="addNew">
                     <button className="btn3"><h5>Add New Schemes</h5></button>
                 </div>
                 

@@ -7,13 +7,13 @@ import "./CategoryDetail.css"
 const CategoryDetail = () => {
 
   const navigate = useNavigate();
-  const { category } = useParams(); // Get the category from the URL parameter
+  const { category } = useParams(); 
   const [items, setItems] = useState([]);
   const { isLoggedIn } = useAuth();
   const handleMoreInfoClick = (e) => {
     if (!isLoggedIn) {
-      e.preventDefault();  // Prevent navigation
-      navigate('/login');  // Redirect to login page
+      e.preventDefault();  
+      navigate('/login'); 
     }};
   useEffect(() => {
     const csvFilePath = '/scraped_texts.csv';
@@ -32,7 +32,6 @@ const CategoryDetail = () => {
             console.log("CSV Data:", result.data);
             console.log("Category Parameter:", category);
 
-            // Normalize category parameter for comparison
             const normalizedCategory = category.toLowerCase().replace(/-/g, ' ').trim();
 
             // Filter and map the data based on the selected category

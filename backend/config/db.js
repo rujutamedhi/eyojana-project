@@ -14,7 +14,6 @@ const connectDB = async () => {
     });
     console.log('MongoDB connected successfully to Atlas');
   } catch (err) {
-    console.log("*****************8")
     console.error('Error connecting to MongoDB Atlas:', err.message);
     process.exit(1);
   }
