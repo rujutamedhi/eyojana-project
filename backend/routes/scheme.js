@@ -143,4 +143,57 @@ router.get('/:schemeId/documents/:documentName', async (req, res) => {
   }
 });
 
+router.put('/:schemeId', async (req, res) => {
+  try {
+    const { schemeId } = req.params; // Get the scheme ID from the request params
+    const { status } = req.body; // Get the new status from the request body
+
+    // Validate the status
+    if (!['approved', 'rejected', 'reverted'].includes(status)) {
+      return res.status(400).json({ message: 'Invalid status value' });
+    }
+
+    // Find the scheme and update its status
+    const updatedScheme = await Scheme.findByIdAndUpdate(
+      schemeId,
+      { status },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedScheme) {
+      return res.status(404).json({ message: 'Scheme not found' });
+    }
+
+    res.status(200).json(updatedScheme); // Return the updated scheme data
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+// PATCH route to update scheme status by email
+router.patch('/update-status/:email', async (req, res) => {
+  try {
+    const { email } = req.params;
+    const { status } = req.body;
+
+    // Find the scheme by email
+    const scheme = await Scheme.findOne({ email });
+
+    if (!scheme) {
+      return res.status(404).json({ message: 'Scheme not found for the provided email' });
+    }
+
+    // Update the scheme's status
+    scheme.status = status;
+    await scheme.save();
+
+    res.status(200).json({ message: 'Status updated successfully', scheme });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+
 module.exports = router;
