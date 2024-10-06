@@ -44,14 +44,15 @@ const SchemeDetail = () => {
         <div>
           <h2><strong>{matchingScheme.span_text}</strong></h2>
           <br />
-          <h4>Documents:</h4><p> {matchingScheme.document}</p>
-          <br />
           <h4>Details:</h4><p>{matchingScheme.details_text}</p>
-          <br />
-          <h4>Eligibility:</h4><p> {matchingScheme.eligibility_text}</p>
           <br />
           <h4>Benefits:</h4><p> {matchingScheme.benefit_text}</p>
           <br />
+          <h4>Eligibility:</h4><p> {matchingScheme.eligibility_text}</p>
+          <br />
+          <h4>Documents Required:</h4><p> {matchingScheme.document}</p>
+          <br />
+        
            <Link className='button' to={"/schemeform"} state={{ schemeName: matchingScheme.span_text }} >Apply</Link>
         </div>
       ) : (
