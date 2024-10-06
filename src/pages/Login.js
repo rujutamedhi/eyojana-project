@@ -117,7 +117,7 @@ const Login = () => {
 
         <div className="signup-link">
           <p>
-            New user? <Link to="/role-selection">Sign up</Link>
+            New user? <Link to="/signup">Sign up</Link>
           </p>
         </div>
       </div>

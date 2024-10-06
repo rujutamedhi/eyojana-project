@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
 import ContactUs from './pages/ContactUs';
-import RoleSelection from "./pages/RoleSelection";
 import AdminSignUp from './pages/AdminSignUp';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -39,7 +38,6 @@ const MainApp = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/approvedSchemes" element={<ApprovedSchemes />} />
-        <Route path="/role-selection" element={<RoleSelection />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/admin-signup" element={<AdminSignUp />} />
         <Route path="/login" element={<Login />} />
