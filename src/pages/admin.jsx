@@ -5,7 +5,7 @@ import img1 from '../images/adminhome.png';
 import { Link } from 'react-router-dom';
 // import { AuthProvider } from "../components/AuthContext";
 // import { useAuth } from "../components/AuthContext";
-
+import  AdminNav  from '../components/adminNav';
 
 const categories = [
     { text: "Agriculture, Rural & Environment" },
@@ -29,17 +29,7 @@ function Admin() {
     return (
         <div>
             <header>
-                <ul>
-                    <div style={{ display: "flex" }}>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/appliedschemes">All Applications</Link></li>
-                        <li><Link to="/notifications">Notifications</Link></li>
-                        <li><Link to="/reverts">Reverts</Link></li>
-                        <li><Link to="/accepted">Accepted</Link></li>
-                    </div>
-                    <Link to="/">
-                    <button className="btn">Sign out</button></Link>
-                </ul>
+                < AdminNav />
             </header>
 
             <div>
