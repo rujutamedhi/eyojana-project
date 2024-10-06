@@ -56,7 +56,7 @@ router.post(
 
       jwt.sign(
         payload,
-        "yourSecretKey", // Replace with your secret key
+        "yourSecretKey", 
         { expiresIn: "1h" },
         (err, token) => {
           if (err) throw err;
@@ -124,5 +124,19 @@ router.post(
     }
   }
 );
+
+router.get('/email', async (req, res) => {
+  const { email } = req.query; // Get email from query
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 module.exports = router;

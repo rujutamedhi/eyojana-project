@@ -57,8 +57,6 @@ function Home() {
             </p>
             <Link to = "/category">
             <button className='schbtn'>Find Schemes </button></Link>
-            <Link to = "/schemeform">
-            <button className='schbtn' > Apply</button> </Link>
             </div>
             
     </section>
