@@ -18,6 +18,8 @@ import { AuthProvider } from './components/AuthContext';
 import SchemeForm from './pages/SchemeForm';
 import AppliedSchemes from './pages/AppliedSchemes';
 import AdminNav from './components/adminNav';
+
+
 const MainApp = () => {
   const location = useLocation(); // Now this is inside Router context
   const isAdminPage = location.pathname.includes('/adminhome'); 
@@ -26,10 +28,11 @@ const MainApp = () => {
 
   return (
     <div>
-      {/* Conditionally render the Navbar */}
+      {/* Show the appropriate Navbar depending on the route */}
       {!hideNavbarRoutes.includes(location.pathname) && (
         isAdminPage ? <AdminNav /> : <Navbar />
       )}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/category" element={<Category />} />
@@ -44,9 +47,9 @@ const MainApp = () => {
         <Route path="/documents-required" element={<DocumentsRequired />} />
         <Route path="/category/:category" element={<CategoryDetail />} />{/* Route for category details */}
         <Route path='/schemedetail' element={<SchemeDetail/>}/>
-        <Route path='/schemeform' element={<SchemeForm/>} />
-        <Route path='/appliedschemes' element={<AppliedSchemes/>}/>
-  
+        <Route path='/schemeform' element={<SchemeForm/>}/>
+        {/* <Route path="/adminhome/notifications" element={<HowItWorks />} /> */}
+        <Route path="/adminhome/appliedschemes" element={<AppliedSchemes />} />
       </Routes>
     </div>
   );
@@ -55,9 +58,9 @@ const MainApp = () => {
 const App = () => {
   return (
     <AuthProvider>
-    <Router>
-      <MainApp /> {/* Use the MainApp component inside Router */}
-    </Router>
+      <Router>
+        <MainApp /> {/* Use the MainApp component inside Router */}
+      </Router>
     </AuthProvider>
   );
 }
