@@ -31,7 +31,7 @@ function Admin() {
             <header>
                 <ul>
                     <div style={{ display: "flex" }}>
-                        <li><Link to="/lll">Home</Link></li>
+                        <li><Link to="/">Home</Link></li>
                         <li><Link to="/appliedschemes">All Applications</Link></li>
                         <li><Link to="/notifications">Notifications</Link></li>
                         <li><Link to="/reverts">Reverts</Link></li>

@@ -19,6 +19,7 @@ import SchemeDetail from './pages/Schemedetail';
 import { AuthProvider } from './components/AuthContext'; 
 import SchemeForm from './pages/SchemeForm';
 import AppliedSchemes from './pages/AppliedSchemes';
+// import ApplicationDetail from './pages/ApplicationDetail';
 
 // Move useLocation inside a separate component inside the Router
 const MainApp = () => {
@@ -50,6 +51,7 @@ const MainApp = () => {
         <Route path='/schemedetail' element={<SchemeDetail/>}/>
         <Route path='/schemeform' element={<SchemeForm/>} />
         <Route path='/appliedschemes' element={<AppliedSchemes/>}/>
+
   
       </Routes>
     </div>
