@@ -112,10 +112,13 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-
+import { useLocation, useNavigate } from 'react-router-dom';
 const SchemeForm = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { schemeName } = location.state || {};
   const [formData, setFormData] = useState({
-    schemename: "",
+    schemename: schemeName || "",
     user_id: "",
     email: "",
     status: "pending",
@@ -179,14 +182,8 @@ const SchemeForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Scheme Name:</label>
-        <input
-          type="text"
-          name="schemename"
-          value={formData.schemename}
-          onChange={handleInputChange}
-          required
-        />
+      <h2>Apply for {schemeName}</h2> 
+        
       </div>
       <div>
         <label>User ID:</label>

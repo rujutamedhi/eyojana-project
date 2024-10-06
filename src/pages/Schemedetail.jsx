@@ -52,7 +52,7 @@ const SchemeDetail = () => {
           <br />
           <h4>Benefits:</h4><p> {matchingScheme.benefit_text}</p>
           <br />
-           <Link className='button' to={"/schemeform"} >Apply</Link>
+           <Link className='button' to={"/schemeform"} state={{ schemeName: matchingScheme.span_text }} >Apply</Link>
         </div>
       ) : (
         <p>No scheme selected or details not available.</p>
