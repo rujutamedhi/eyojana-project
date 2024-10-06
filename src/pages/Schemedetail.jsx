@@ -42,11 +42,16 @@ const SchemeDetail = () => {
     <div className="container mt-4">
       {matchingScheme ? (
         <div>
-          <h2>{matchingScheme.span_text}</h2>
-          <p><strong>Document:</strong> {matchingScheme.document}</p>
-          <p><strong>Details:</strong> {matchingScheme.details_text}</p>
-          <p><strong>Eligibility:</strong> {matchingScheme.eligibility_text}</p>
-          <p><strong>Benefits:</strong> {matchingScheme.benefit_text}</p>
+          <h2><strong>{matchingScheme.span_text}</strong></h2>
+          <br />
+          <h4>Documents:</h4><p> {matchingScheme.document}</p>
+          <br />
+          <h4>Details:</h4><p>{matchingScheme.details_text}</p>
+          <br />
+          <h4>Eligibility:</h4><p> {matchingScheme.eligibility_text}</p>
+          <br />
+          <h4>Benefits:</h4><p> {matchingScheme.benefit_text}</p>
+          <br />
            <Link className='button' to={"/schemeform"} >Apply</Link>
         </div>
       ) : (
