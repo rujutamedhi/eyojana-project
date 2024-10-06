@@ -14,8 +14,6 @@ import Admin from './pages/admin';
 import DocumentsRequired from './pages/DocumentsRequired';
 import CategoryDetail from './pages/CategoryDetail';
 import SchemeDetail from './pages/Schemedetail';
-
-
 import { AuthProvider } from './components/AuthContext'; 
 import SchemeForm from './pages/SchemeForm';
 import AppliedSchemes from './pages/AppliedSchemes';
@@ -48,7 +46,9 @@ const MainApp = () => {
         <Route path="/documents-required" element={<DocumentsRequired />} />
         <Route path="/category/:category" element={<CategoryDetail />} />{/* Route for category details */}
         <Route path='/schemedetail' element={<SchemeDetail/>}/>
-        <Route path="/adminhome/notifications" element={<HowItWorks />} />
+        <Route path='/schemeform' element={<SchemeForm/>}/>
+        {/* <Route path="/adminhome/notifications" element={<HowItWorks />} /> */}
+        <Route path="/adminhome/appliedschemes" element={<AppliedSchemes />} />
       </Routes>
     </div>
   );
