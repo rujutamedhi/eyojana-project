@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
-import { AuthProvider } from "../components/AuthContext";
 import { useAuth } from "../components/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user"); // State to track user role (admin or user)
-  const [message, setMessage] = useState(""); // State for error or success messages
+  const [role, setRole] = useState("user");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useAuth();
+  const { setIsLoggedIn, setEmail: setAuthEmail } = useAuth(); // Destructure setEmail
+
+  // Fetch the email from local storage when the component mounts
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
+
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    // Client-side validation
     if (!email || !password) {
       setMessage("Email and password are required.");
       return;
@@ -22,8 +29,8 @@ const Login = () => {
 
     const loginUrl =
       role === "admin"
-        ? "http://localhost:5000/api/admin/login" // Admin login URL
-        : "http://localhost:5000/api/auth/login"; // User login URL
+        ? "http://localhost:5000/api/admin/login"
+        : "http://localhost:5000/api/auth/login";
 
     try {
       const response = await fetch(loginUrl, {
@@ -31,32 +38,30 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        // If login is successful
         localStorage.setItem("authToken", data.authToken);
+        localStorage.setItem("email", email); // Store email in local storage
+        setAuthEmail(email); // Set email in Auth context
         setMessage(`${role.charAt(0).toUpperCase() + role.slice(1)} login successful! Redirecting...`);
         setIsLoggedIn(true);
+
         setTimeout(() => {
-          if (role === "admin") {
-            navigate("/adminhome"); // Redirect to the admin page for admins
-          } else {
-            navigate("/"); // Redirect to homepage for users
-          }
+          navigate(role === "admin" ? "/adminhome" : "/");
         }, 2000);
       } else {
-        // Handle specific login errors
-        if (data.errors && data.errors.includes("User not found")) {
-          setMessage("User not found. Please register before logging in.");
-        } else if (data.errors && data.errors.includes("Invalid credentials")) {
-          setMessage("Invalid email or password. Please try again.");
+        if (data.errors) {
+          if (data.errors.includes("User not found")) {
+            setMessage("User not found. Please register before logging in.");
+          } else if (data.errors.includes("Invalid credentials")) {
+            setMessage("Invalid email or password. Please try again.");
+          } else {
+            setMessage("Login failed. Please try again.");
+          }
         } else {
           setMessage("Login failed. Please try again.");
         }

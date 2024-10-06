@@ -10,14 +10,25 @@ export function AuthProvider({ children }) {
     const storedLoginStatus = localStorage.getItem('isLoggedIn');
     return storedLoginStatus ? JSON.parse(storedLoginStatus) : false;
   });
+  
+  const [email, setEmail] = useState(() => {
+    // Check localStorage for stored email
+    const storedEmail = localStorage.getItem('email');
+    return storedEmail ? storedEmail : "";
+  });
 
   // Update localStorage when login state changes
   useEffect(() => {
     localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
 
+  // Update localStorage when email changes
+  useEffect(() => {
+    localStorage.setItem('email', email);
+  }, [email]);
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, email, setEmail }}>
       {children}
     </AuthContext.Provider>
   );
