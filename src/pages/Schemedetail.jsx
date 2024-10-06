@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Papa from 'papaparse';
-
+import { Link, useNavigate } from 'react-router-dom';
+import "./schemedetails.css"
 const SchemeDetail = () => {
   const location = useLocation();
   const { selectedItem } = location.state || {};
@@ -46,7 +47,7 @@ const SchemeDetail = () => {
           <p><strong>Details:</strong> {matchingScheme.details_text}</p>
           <p><strong>Eligibility:</strong> {matchingScheme.eligibility_text}</p>
           <p><strong>Benefits:</strong> {matchingScheme.benefit_text}</p>
-          
+           <Link className='button' to={"/schemeform"} >Apply</Link>
         </div>
       ) : (
         <p>No scheme selected or details not available.</p>
