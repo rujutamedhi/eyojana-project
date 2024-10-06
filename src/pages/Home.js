@@ -111,55 +111,50 @@ function Home() {
     </div></div>
     </section>
     <footer className="footer-container" id="contact">
-      <div className="footer-content">
+  <div className="footer-content">
+    <div className="footer-section">
+      <h4>Powered By</h4>
+      <p>Government Of India</p>
+    </div>
 
-      <div className="footer-section">
-          <h4>Powered By</h4>
-          <p>Government Of India</p>
-        </div>
+    <div className="footer-section">
+      <h4>Quick Links</h4>
+      <p><Link to="/">Home</Link></p>
+      <p><Link to="/category">Schemes</Link></p>
+      <p><a href="#about">About</a></p>
+      <p><a href="#faq">FAQs</a></p>
+      <p><a href="#contact">Contact Us</a></p>
+      <p><Link to="/ApprovedSchemes">Approved Schemes</Link></p>
+    </div>
 
-        <div className="footer-section">
-          <h4>Quick Links</h4>
-         
-            <p><Link to="/">Home</Link></p>
-            <p><Link to="/category">Schemes</Link></p>
-            <p><a href="#about">About</a></p>
-            <p><a href="#faq">FAQs</a></p>
-            <p><a href="#contact">Contact Us</a></p>
-            <p><Link to="/ApprovedSchemes">Approved Schemes</Link></p>
-             
-        </div>
+    <div className="footer-section">
+      <h4>Contact Us</h4>
+      <p>Email: info@eyojana.gov</p>
+      <p>Phone: +123 456 7890</p>
+      <p>Address: 123 Government Building, Mumbai</p>
+    </div>
 
-        {/* Contact Section */}
-        <div className="footer-section">
-          <h4>Contact Us</h4>
-          <p>Email: info@eyojana.gov</p>
-          <p>Phone: +123 456 7890</p>
-          <p>Address: 123 Government Building, Mumbai</p>
-        </div>
-
-        {/* Social Media Section */}
-        <div className="footer-section social-media">
-          <h4>Follow Us</h4>
-          <div className="social-icons">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-facebook-f"></i><p>FaceBook</p>
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-twitter"></i><p>Twitter</p>
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-instagram"></i><p>Instagram</p>
-            </a>
-          </div>
-        </div>
+    <div className="footer-section social-media">
+      <h4>Follow Us</h4>
+      <div className="social-icons">
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+          <i className="fab fa-facebook-f"></i><p>FaceBook</p>
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+          <i className="fab fa-twitter"></i><p>Twitter</p>
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+          <i className="fab fa-instagram"></i><p>Instagram</p>
+        </a>
       </div>
+    </div>
+  </div>
 
-      {/* Footer Bottom */}
-      <div className="footer-bottom">
-        <p>© 2024 E-Yojana. All rights reserved.</p>
-      </div>
-    </footer>
+  <div className="footer-bottom">
+    <p>© 2024 E-Yojana. All rights reserved.</p>
+  </div>
+</footer>
+
   </div>
   );
 }
