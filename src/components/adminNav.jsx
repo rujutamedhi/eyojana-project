@@ -12,7 +12,6 @@ const AdminNav = () => {
                     <div style={{ display: "flex" }}>
                         <li><Link to="/adminhome">Home</Link></li>
                         <li><Link to="/adminhome/appliedschemes">All Applications</Link></li>
-                        <li><Link to="/adminhome/notifications">Notifications</Link></li>
                         <li><Link to="/adminhome/revertedschemes">Reverts</Link></li>
                         <li><Link to="/adminhome/approvedschemes">Approved</Link></li>
                     </div>
