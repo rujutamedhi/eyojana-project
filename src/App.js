@@ -18,8 +18,8 @@ import AppliedSchemes from './pages/AppliedSchemes';
 import AdminNav from './components/adminNav';
 import ApprovedSchemes from './pages/ApprovedSchemes';
 import RevertedSchemes from './pages/RevertedSchemes';
-
-
+import  UserSchemes from './pages/UserSchemes' ;
+import AuthContext from './components/AuthContext';
 const MainApp = () => {
   const location = useLocation(); // Now this is inside Router context
   const isAdminPage = location.pathname.includes('/adminhome'); 
@@ -49,6 +49,7 @@ const MainApp = () => {
         <Route path="/adminhome/appliedschemes" element={<AppliedSchemes />} />
         <Route path="/adminhome/approvedschemes" element={<ApprovedSchemes/>} />
         <Route path="/adminhome/revertedschemes" element={<RevertedSchemes/>} />
+        <Route path="/myapplications" element={<UserSchemes/>}/>
 
       </Routes>
     </div>
