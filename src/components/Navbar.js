@@ -108,7 +108,7 @@ const handleLogout = () => {
             <li><a href="#about" onClick={() => navigateToSection('about')}>About</a></li>
             <li><a href="#faq" onClick={() => navigateToSection('faq')}>FAQs</a></li>
             <li><a href="#contact" onClick={() => navigateToSection('contact')}>Contact Us</a></li>
-            <li><Link to="/ApprovedSchemes">Approved Schemes</Link></li>
+            <li><Link to="/myapplications">My Applications</Link></li>
           </ul>
         </div>
 

@@ -31,7 +31,7 @@ console.log("test7")
 app.use('/api/schemes', schemeRoutes);
  
 app.use('/api/auth/email' , userRoutes);
-
+app.use('/api/schemes/:email' , schemeRoutes);
 
 // const transporter = nodemailer.createTransport({
 // //     service: 'gmail', 

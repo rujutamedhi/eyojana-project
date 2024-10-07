@@ -19,7 +19,7 @@ const SchemeSchema = new Schema({
   schemename: {
     type: String,
     required: true,
-    maxlength: 50
+    maxlength: 100,
   },
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
@@ -29,7 +29,7 @@ const SchemeSchema = new Schema({
   email: {
     type: String,
     required: true,
-    // unique: true,
+    unique: true,
     maxlength: 100
   },
   status: {

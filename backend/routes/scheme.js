@@ -89,5 +89,21 @@ router.patch('/update-status/:email/:schemename', async (req, res) => {
   }
 });
 
+router.get('/:email', async (req, res) => {
+  const email = req.params.email;
+  console.log('Received request for email:', email);
+
+  try {
+    const schemes = await Scheme.find({ email }); 
+    if (!schemes || schemes.length === 0) {
+      return res.status(404).json({ message: 'No schemes found for this email.' });
+    }
+    res.json(schemes);
+  } catch (error) {
+    console.error('Error fetching schemes:', error);
+    res.status(500).json({ message: 'Server error while fetching schemes.' });
+  }
+});
+
 
 module.exports = router;
