@@ -64,7 +64,7 @@ const Modal = ({ application, onClose }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className="modal-content1">
         <button className="close-button" onClick={onClose}>X</button>
         <h2>{application.schemename}</h2>
         <p><strong>Email:</strong> {application.email}</p>

@@ -1,15 +1,23 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../components/AuthContext';
+import { useNavigate } from 'react-router-dom'; 
 import "./UserSchemes.css";
 
 const UserSchemes = () => {
-    const { email } = useAuth();
+    const { isLoggedIn, email } = useAuth(); 
     const [schemes, setSchemes] = useState([]);
     const [filteredSchemes, setFilteredSchemes] = useState([]);
     const [error, setError] = useState(null);
     const [statusFilter, setStatusFilter] = useState('All');
+    const navigate = useNavigate(); 
+
+  
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/login');
+        }
+    }, [isLoggedIn, navigate]);
 
     useEffect(() => {
         const fetchSchemes = async () => {
@@ -35,7 +43,7 @@ const UserSchemes = () => {
             setFilteredSchemes(schemes);
         } else {
             const filtered = schemes.filter(scheme => scheme.status.trim().toLowerCase() === status.toLowerCase());
-            console.log(`Filtering for status: ${status}, Found:`, filtered); // Log filtered schemes
+            console.log(`Filtering for status: ${status}, Found:`, filtered); 
             setFilteredSchemes(filtered);
         }
     };
@@ -67,4 +75,5 @@ const UserSchemes = () => {
 };
 
 export default UserSchemes;
+
 
