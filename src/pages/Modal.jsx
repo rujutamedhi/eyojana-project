@@ -6,6 +6,8 @@ const Modal = ({ application, onClose }) => {
   const [status, setStatus] = useState(application.status);
   const [selectedDoc, setSelectedDoc] = useState(null);
   const [userDetails, setUserDetails] = useState(null); // State to store user details
+  const [showRevertMessage, setShowRevertMessage] = useState(false); // Track if reverted is selected
+  const [revertMessage, setRevertMessage] = useState(''); // Message for reverted status
 
   // Fetch user details based on the application email when modal opens
   useEffect(() => {
@@ -28,9 +30,16 @@ const Modal = ({ application, onClose }) => {
 
   const handleUpdateStatus = async () => {
     try {
+      const data = { status };
+
+      // Add revert message if status is "Reverted"
+      if (status === 'reverted') {
+        data.revertMessage = revertMessage; 
+      }
+
       await axios.patch(
         `http://localhost:5000/api/schemes/update-status/${application.email}/${application.schemename}`,
-        { status }
+        data
       );
       alert('Status updated successfully');
       onClose(); // Close modal after updating
@@ -45,6 +54,12 @@ const Modal = ({ application, onClose }) => {
 
   const closeDocumentViewer = () => {
     setSelectedDoc(null); // Close the document viewer
+  };
+
+  const handleStatusChange = (e) => {
+    const newStatus = e.target.value;
+    setStatus(newStatus);
+    setShowRevertMessage(newStatus === 'reverted'); // Show message field if "Reverted" is selected
   };
 
   return (
@@ -81,12 +96,27 @@ const Modal = ({ application, onClose }) => {
         </ul>
 
         <h3>Update Status</h3>
-        <select value={status} onChange={(e) => setStatus(e.target.value)}>
+        <select value={status} onChange={handleStatusChange}>
           <option value="pending">Pending</option>
           <option value="approved">Approved</option>
           <option value="rejected">Rejected</option>
           <option value="reverted">Reverted</option>
         </select>
+
+        {/* Show text field when "Reverted" is selected */}
+        {showRevertMessage && (
+          <div className="revert-message">
+            <h4>Reason for Reversion:</h4>
+            <textarea
+              value={revertMessage}
+              onChange={(e) => setRevertMessage(e.target.value)}
+              placeholder="Enter the reason for reversion..."
+              rows={4}
+              style={{ width: '100%' }}
+            />
+          </div>
+        )}
+
         <button className="update-button" onClick={handleUpdateStatus}>Update Status</button>
       </div>
 

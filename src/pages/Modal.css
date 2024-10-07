@@ -17,6 +17,16 @@
     border-radius: 8px;
     width: 500px; /* Set a fixed width for the modal */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    
+      background-color: white;
+      width: 50%; /* You can adjust the width as needed */
+      max-height: 80vh; /* Constrain the height of the modal */
+      overflow-y: auto; /* Add scrolling for vertical overflow */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+    
   }
   
   .document-viewer-overlay {

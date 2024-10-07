@@ -9,7 +9,7 @@ const SchemeForm = () => {
   const { schemeName } = location.state || {};
   const { email } = useAuth(); // Access email from context
   const currentcategory = location.state?.currentcategory || ""; // Use this value directly
-
+  console.log(currentcategory)
   const [formData, setFormData] = useState({
     schemename: schemeName || "",
     user_id: "",
@@ -46,6 +46,7 @@ const SchemeForm = () => {
     e.preventDefault();
     const data = new FormData();
 
+    // Append form data to FormData object
     data.append("schemename", formData.schemename);
     data.append("user_id", formData.user_id);
     data.append("email", formData.email);
@@ -69,7 +70,7 @@ const SchemeForm = () => {
       console.log("Response:", res.data);
       // Optionally navigate or show success message
     } catch (err) {
-      setError(err.response?.data || err.message); // Set error message to state
+      setError(err.response?.data.message || err.message); // Set error message to state
       console.error("Error uploading files:", err);
     }
   };
