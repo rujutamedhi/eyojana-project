@@ -60,6 +60,7 @@ import './navbar.css';
 import eyojana from '../images/e-yojana.png';
 import { AuthProvider } from "../components/AuthContext";
 import { useAuth } from "../components/AuthContext";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function Navbar() {
 
@@ -113,6 +114,7 @@ const handleLogout = () => {
         </div>
 
         <div className="nav-login">
+          
           {!isLoggedIn?(<Link to="/login">
             <button id="loginbutton" className="btn">Login</button>
           </Link>):(
@@ -120,8 +122,13 @@ const handleLogout = () => {
             <button id="loginbutton" onClick={handleLogout} className="btn">LogOut</button>
           </Link>
           )}
+        
           
-          
+        </div>
+        <div className="profile-icon">
+          <Link to="/profile">
+            <AccountCircleIcon sx={{ color: '#779307' }} fontSize="large" />
+          </Link>
         </div>
       </div>
     </nav>

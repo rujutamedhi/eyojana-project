@@ -20,6 +20,8 @@ import ApprovedSchemes from './pages/ApprovedSchemes';
 import RevertedSchemes from './pages/RevertedSchemes';
 import  UserSchemes from './pages/UserSchemes' ;
 import AuthContext from './components/AuthContext';
+import Profile from './pages/profile';
+
 const MainApp = () => {
   const location = useLocation(); // Now this is inside Router context
   const isAdminPage = location.pathname.includes('/adminhome'); 
@@ -50,6 +52,7 @@ const MainApp = () => {
         <Route path="/adminhome/approvedschemes" element={<ApprovedSchemes/>} />
         <Route path="/adminhome/revertedschemes" element={<RevertedSchemes/>} />
         <Route path="/myapplications" element={<UserSchemes/>}/>
+        <Route path="/profile" element={<Profile />} />
 
       </Routes>
     </div>

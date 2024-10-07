@@ -94,11 +94,20 @@
     display: block;
     text-align: center;
   }
+
   .nav-login {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
+    display: flex;                  
+    align-items: center;           
+    justify-content: space-between; 
+    padding: 10px; 
   }
+
+ 
+
+.profile-icon i {
+    font-size: 20px;             
+    color: #8BC34A;              
+}
 
   .nav-links li {
     margin: 10px 0;
