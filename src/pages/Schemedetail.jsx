@@ -5,8 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import "./schemedetails.css"
 const SchemeDetail = () => {
   const location = useLocation();
-  const { selectedItem } = location.state || {};
-
+  const { selectedItem, category } = location.state || {};
+  
   const [csvData, setCsvData] = useState([]);
   const [matchingScheme, setMatchingScheme] = useState(null);
 
@@ -53,7 +53,7 @@ const SchemeDetail = () => {
           <h4>Documents Required:</h4><p> {matchingScheme.document}</p>
           <br />
         
-           <Link className='button' to={"/schemeform"} state={{ schemeName: matchingScheme.span_text }} >Apply</Link>
+           <Link className='button' to={"/schemeform"} state={{ schemeName: matchingScheme.span_text,currentcategory: category }} >Apply</Link>
         </div>
       ) : (
         <p>No scheme selected or details not available.</p>
@@ -61,5 +61,5 @@ const SchemeDetail = () => {
     </div>
   );
 };
-
+// state={{ selectedItem: item }}
 export default SchemeDetail;

@@ -62,7 +62,7 @@ const CategoryDetail = () => {
               <div className="scheme_name">{item}</div>
               <Link 
                 to="/schemedetail" 
-                state={{ selectedItem: item }}  // Pass the selected item
+                state={{ selectedItem: item, category: category.replace(/-/g, ' ').toUpperCase() }}  // Pass the selected item
                 className="detail btn-primary"
                 onClick={handleMoreInfoClick} 
               >

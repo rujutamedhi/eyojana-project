@@ -63,13 +63,13 @@ app.use('/api/schemes', schemeRoutes);
 app.use('/api/auth/email' , userRoutes);
 
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail', 
-    auth: {
-      user: EMAIL_NAME, 
-      pass: EMAIL_PASS, 
-    },
-  });
+// const transporter = nodemailer.createTransport({
+//     service: 'gmail', 
+//     auth: {
+//       user: EMAIL_NAME, 
+//       pass: EMAIL_PASS, 
+//     },
+//   });
 
   app.post('/api/schemes', upload.array('documents'), async (req, res) => {
     const { schemename, user_id, email, status, category } = req.body;
@@ -77,12 +77,12 @@ console.log('email testing 1');
     // Email sending setup
     
     console.log('email testing 2');
-    const mailOptions = {
-        from: EMAIL_NAME,
-        to: email, // Ensure this is the correct email received
-        subject: 'Scheme Application Received',
-        text: `Your application for the scheme has been received.`,
-    };
+    // const mailOptions = {
+    //     from: EMAIL_NAME,
+    //     to: email, // Ensure this is the correct email received
+    //     subject: 'Scheme Application Received',
+    //     text: `Your application for the scheme has been received.`,
+    // };
     console.log('email testing 3');
     try {
         await transporter.sendMail(mailOptions);
