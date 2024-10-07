@@ -21,7 +21,7 @@ const UserSchema = new Schema({
   phone_number: {
     type: String,
     required: true,
-    match: /^[1-9][0-9]{9}$/ 
+    match: /^[7-9][0-9]{9}$/  
   },
   state: {
     type: String,

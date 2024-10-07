@@ -13,8 +13,8 @@ const AdminNav = () => {
                         <li><Link to="/adminhome">Home</Link></li>
                         <li><Link to="/adminhome/appliedschemes">All Applications</Link></li>
                         <li><Link to="/adminhome/notifications">Notifications</Link></li>
-                        <li><Link to="/adminhome/reverts">Reverts</Link></li>
-                        <li><Link to="/adminhome/accepted">Accepted</Link></li>
+                        <li><Link to="/adminhome/revertedschemes">Reverts</Link></li>
+                        <li><Link to="/adminhome/approvedschemes">Approved</Link></li>
                     </div>
                     <Link to="/">
                     <button className="btn">Sign out</button></Link>

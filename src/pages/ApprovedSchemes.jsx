@@ -3,23 +3,23 @@ import axios from 'axios';
 import Modal from './Modal'; 
 import './AppliedSchemes.css'; // Import the CSS file for styling
 
-const AppliedSchemes = () => {
-  const [pendingApplications, setPendingApplications] = useState([]); // State for pending applications
+const ApprovedSchemes = () => {
+  const [approvedApplications, setApprovedApplications] = useState([]); // State for approved applications
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const fetchPendingApplications = async () => {
+    const fetchApprovedApplications = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/schemes');
-        const pending = response.data.filter(app => app.status === 'pending'); // Filter for pending schemes
-        setPendingApplications(pending);
+        const approved = response.data.filter(app => app.status === 'approved'); // Filter for approved schemes
+        setApprovedApplications(approved);
       } catch (error) {
-        console.error('Error fetching pending applications:', error);
+        console.error('Error fetching approved applications:', error);
       }
     };
 
-    fetchPendingApplications();
+    fetchApprovedApplications();
   }, []);
 
   const handleViewDetails = (application) => {
@@ -34,10 +34,10 @@ const AppliedSchemes = () => {
 
   return (
     <div className="applications-container">
-      <h1>Pending Applications</h1>
+      <h1>Approved Applications</h1>
       <div className="applications-grid">
-        {pendingApplications.length > 0 ? (
-          pendingApplications.map(app => (
+        {approvedApplications.length > 0 ? (
+          approvedApplications.map(app => (
             <div key={app._id} className="application-card">
               <h3>{app.schemename}</h3>
               <p>Status: {app.status}</p>
@@ -47,7 +47,7 @@ const AppliedSchemes = () => {
             </div>
           ))
         ) : (
-          <p>No pending applications found.</p>
+          <p>No approved applications found.</p>
         )}
       </div>
       {showModal && selectedApplication && (
@@ -57,5 +57,4 @@ const AppliedSchemes = () => {
   );
 };
 
-export default AppliedSchemes;
-
+export default ApprovedSchemes;
