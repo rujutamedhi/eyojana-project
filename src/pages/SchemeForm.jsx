@@ -7,8 +7,30 @@ const SchemeForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { schemeName } = location.state || {};
-  const { email } = useAuth(); // Access email from context
+   // Access email from context
   const currentcategory = location.state?.currentcategory || ""; // Use this value directly
+
+  const { email: authEmail } = useAuth(); // Renaming email from useAuth() to authEmail
+  const [email, setEmail] = useState(authEmail);
+  const sendEmail = async (e) => {
+    e.preventDefault();
+
+  const data = {
+    email,
+  };
+
+  const response = await axios.post(
+    "http://localhost:5000/api/sendemail",
+    data
+  );
+  console.log(response.data);
+  };
+
+  const combinedSubmit = (e) => {
+    e.preventDefault();  // Prevents form from refreshing the page
+    handleSubmit(e);
+    sendEmail(e);
+  };
 
   const [formData, setFormData] = useState({
     schemename: schemeName || "",
@@ -19,6 +41,7 @@ const SchemeForm = () => {
     documents: [], // Array to hold document objects
   });
 
+  
   const [error, setError] = useState(""); // State for error messages
 
   const handleInputChange = (e) => {
@@ -75,7 +98,7 @@ const SchemeForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={combinedSubmit}>
       <div>
         <h2>Apply for {schemeName}</h2>
       </div>
@@ -96,7 +119,10 @@ const SchemeForm = () => {
           type="email"
           name="email"
           value={email}
-          onChange={handleInputChange}
+          onChange={(e) => {
+            handleInputChange(e);
+            setEmail(e.target.value);
+          }}
           required
           readOnly // Optional: make the email field read-only if you don't want it to be edited
         />
