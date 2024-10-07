@@ -29,7 +29,7 @@ const SchemeSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
     maxlength: 100
   },
   status: {
