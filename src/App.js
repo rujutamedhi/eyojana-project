@@ -8,7 +8,6 @@ import AdminSignUp from './pages/AdminSignUp';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Category from './pages/Category';
-import ApprovedSchemes from './pages/ApprovedSchemes';
 import Admin from './pages/admin';
 import DocumentsRequired from './pages/DocumentsRequired';
 import CategoryDetail from './pages/CategoryDetail';
@@ -17,6 +16,8 @@ import { AuthProvider } from './components/AuthContext';
 import SchemeForm from './pages/SchemeForm';
 import AppliedSchemes from './pages/AppliedSchemes';
 import AdminNav from './components/adminNav';
+import ApprovedSchemes from './pages/ApprovedSchemes';
+import RevertedSchemes from './pages/RevertedSchemes';
 
 
 const MainApp = () => {
@@ -37,17 +38,18 @@ const MainApp = () => {
         <Route path="/category" element={<Category />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/approvedSchemes" element={<ApprovedSchemes />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/admin-signup" element={<AdminSignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/adminhome" element={<Admin />} />
         <Route path="/documents-required" element={<DocumentsRequired />} />
-        <Route path="/category/:category" element={<CategoryDetail />} />{/* Route for category details */}
+        <Route path="/category/:category" element={<CategoryDetail />} />
         <Route path='/schemedetail' element={<SchemeDetail/>}/>
         <Route path='/schemeform' element={<SchemeForm/>}/>
-        {/* <Route path="/adminhome/notifications" element={<HowItWorks />} /> */}
         <Route path="/adminhome/appliedschemes" element={<AppliedSchemes />} />
+        <Route path="/adminhome/approvedschemes" element={<ApprovedSchemes/>} />
+        <Route path="/adminhome/revertedschemes" element={<RevertedSchemes/>} />
+
       </Routes>
     </div>
   );
