@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
-
+import './schemeform.css';
 const SchemeForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -98,21 +98,23 @@ const SchemeForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form className="scheme-form" onSubmit={handleSubmit}>
+      <div className="form-header">
         <h2>Apply for {schemeName}</h2>
       </div>
-      {error && <div style={{ color: 'red' }}>{error}</div>} {/* Display error message */}
-      <div style={{display:"none"}}>
+      {error && <div className="error-message">{error}</div>} {/* Display error message */}
+      
+      <div className="form-group" style={{display: "none"}}>
         <label>User ID:</label>
         <input
           type="text"
           name="user_id"
           value={formData.user_id}
-          readOnly // Optional: make this field read-only
+          readOnly
         />
       </div>
-      <div>
+
+      <div className="form-group">
         <label>Email:</label>
         <input
           type="email"
@@ -120,13 +122,13 @@ const SchemeForm = () => {
           value={email}
           onChange={handleInputChange}
           required
-          readOnly // Optional: make the email field read-only if you don't want it to be edited
+          readOnly
         />
       </div>
 
       <h4>Documents:</h4>
       {formData.documents.map((document, index) => (
-        <div key={index} style={{ marginBottom: "10px" }}>
+        <div key={index} className="document-input-group">
           <input
             type="text"
             placeholder="Document Name"
@@ -141,10 +143,12 @@ const SchemeForm = () => {
           />
         </div>
       ))}
-      <button type="button" onClick={addDocument}>
+      
+      <button type="button" className=" buttons add-document-btn" onClick={addDocument}>
         Add Document
       </button>
-      <button type="submit">Submit</button>
+
+      <button type="submit" className="buttons submit-btn">Submit</button>
     </form>
   );
 };
