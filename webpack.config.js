@@ -12,5 +12,16 @@ module.exports = {
       assert: require.resolve('assert/'),
       url: require.resolve('url/')
     }
-  }
+  },
+  rules: {
+    "no-restricted-globals": [
+        "error",
+        {
+            name: "confirm",
+            message: "Please use a custom confirmation dialog instead."
+        },
+        "alert",
+        "prompt"
+    ]
+}
 };
