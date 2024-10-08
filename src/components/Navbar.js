@@ -69,12 +69,16 @@ function Navbar() {
 const { setIsLoggedIn } = useAuth();
 
 const handleLogout = () => {
-  // Clear the token and reset login state
+// eslint-disable-next-line no-restricted-globals
+  if (confirm("Are you sure you want to logout?")) {
+      // Clear the token and reset login state
   localStorage.removeItem("authToken");
- // localStorage.removeItem("Email");
-  setIsLoggedIn(false);
-  alert("are you sure you want to logout?")
-  navigate("/login"); // Redirect to login page after logout
+  // localStorage.removeItem("Email");
+   setIsLoggedIn(false);
+    // If the user clicks "OK", navigate to the login page
+    navigate("/login");
+  }
+  
 };
 
   const logout = (setIsLoggedIn) =>{

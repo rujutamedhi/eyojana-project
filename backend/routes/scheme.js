@@ -105,6 +105,23 @@ router.get('/:email', async (req, res) => {
   }
 });
 
+router.post('/check', async (req, res) => {
+  try {
+    const { email, schemename } = req.body;
+
+    // Find if a scheme exists for the given email and scheme name
+    const scheme = await Scheme.findOne({ email, schemename });
+
+    if (scheme) {
+      return res.status(200).json({ exists: true, message: 'Scheme already applied.' });
+    } else {
+      return res.status(200).json({ exists: false, message: 'No existing application found.' });
+    }
+  } catch (error) {
+    console.error('Error checking scheme:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
 
 
 module.exports = router;
