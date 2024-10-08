@@ -62,6 +62,35 @@ app.use('/api/schemes/:email' , schemeRoutes);
     }
   });
 
+  app.post('/send-email', async (req, res) => {
+    const { email, message } = req.body;
+  
+    try {
+      const send_to = email;
+      const sent_from = process.env.EMAIL_NAME;
+      const reply_to = email;
+      const subject = "Application Status Update";
+  
+      // Create the email content dynamically
+      const emailMessage = `
+        <h3>E-yojana</h3>
+        <p>${message}</p>
+      `;
+  
+      // Call sendEmail function
+      const emailResult = await sendEmail(subject, emailMessage, send_to, sent_from, reply_to);
+  
+      if (emailResult.success) {
+        res.status(200).json({ message: "Email sent successfully" });
+      } else {
+        res.status(500).json({ error: "Failed to send email", details: emailResult.error });
+      }
+    } catch (error) {
+      res.status(500).json({ error: "Server error while sending email" });
+    }
+  });
+  
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 

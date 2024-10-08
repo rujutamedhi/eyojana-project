@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Modal.css'; // For styling
+import { sendRevertEmail } from './statusEmail'; // Import the email sending function
 
 const Modal = ({ application, onClose }) => {
   const [status, setStatus] = useState(application.status);
@@ -31,22 +32,42 @@ const Modal = ({ application, onClose }) => {
   const handleUpdateStatus = async () => {
     try {
       const data = { status };
-
-      // Add revert message if status is "Reverted"
+  
+      // Add revert message only if status is "Reverted"
       if (status === 'reverted') {
-        data.revertMessage = revertMessage; 
+        data.revertMessage = revertMessage; // Include revertMessage in the payload
       }
-
+  
+      // Update status in the backend
       await axios.patch(
         `http://localhost:5000/api/schemes/update-status/${application.email}/${application.schemename}`,
         data
       );
-      alert('Status updated successfully');
-      onClose(); // Close modal after updating
+  
+      // Prepare the email subject and message based on the status
+      const subject = `Your application status for ${application.schemename} has been updated`;
+      let message = `Your application has been ${status}.`;
+  
+      // Customize email content for "Reverted" status
+      if (status === 'reverted') {
+        message = `Your application has been reverted with the following reason: ${revertMessage}`;
+      }
+  
+      // Call sendRevertEmail function to send the email
+      const emailSent = await sendRevertEmail(application.email, message);
+      if (emailSent) {
+        alert('Email sent successfully');
+      } else {
+        alert('Failed to send email');
+      }
+  
+      alert('Status updated successfully');       
+      onClose(); // Close the modal after updating
     } catch (error) {
       console.error('Error updating status:', error);
     }
   };
+  
 
   const handleDocumentClick = (docName) => {
     setSelectedDoc(docName); // Set the clicked document name
