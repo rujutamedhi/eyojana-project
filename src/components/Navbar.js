@@ -69,7 +69,7 @@ function Navbar() {
 const { setIsLoggedIn } = useAuth();
 
 const handleLogout = () => {
-
+// eslint-disable-next-line no-restricted-globals
   if (confirm("Are you sure you want to logout?")) {
       // Clear the token and reset login state
   localStorage.removeItem("authToken");
