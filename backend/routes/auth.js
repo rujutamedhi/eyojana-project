@@ -139,4 +139,18 @@ router.get('/email', async (req, res) => {
   }
 });
 
+// Example API endpoint in your Express app
+router.get('/:email', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    console.log(user)
+    if (user) {
+      return res.json({ user_id: user._id }); // Return the user_id
+    } else {
+      return res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
 module.exports = router;
