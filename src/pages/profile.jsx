@@ -15,7 +15,17 @@ const Profile = () => {
   });
 
   const loggedInUserEmail = localStorage.getItem('email'); // Assuming email is stored here after login
-
+  const genderOptions = ['Male', 'Female', 'Other'];
+  const stateOptions = [
+    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
+    'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand',
+    'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur',
+    'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab',
+    'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura',
+    'Uttar Pradesh', 'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands',
+    'Chandigarh', 'Dadra and Nagar Haveli and Daman and Diu', 'Lakshadweep',
+    'Delhi', 'Puducherry', 'Jammu and Kashmir', 'Ladakh'
+  ];
   // Fetch user data based on email
   useEffect(() => {
     const fetchUserData = async () => {
@@ -68,9 +78,8 @@ const Profile = () => {
   };
 
   return (
-    <Container className="profile-page">
+<Container className="profile-page">
       <Row className="justify-content-md-center">
-        
         <Col md="8">
           <h2 className="my-profile-title">My Profile</h2>
           <Form>
@@ -83,6 +92,7 @@ const Profile = () => {
                     name="username"
                     value={user.username}
                     onChange={handleChange}
+                    style={{ cursor: editMode ? 'auto' : 'not-allowed' }}
                     readOnly={!editMode}
                   />
                 </Form.Group>
@@ -95,7 +105,8 @@ const Profile = () => {
                     name="email"
                     value={user.email}
                     onChange={handleChange}
-                    readOnly={!editMode}
+                    style={{ cursor:  'not-allowed' }}
+                    readOnly
                   />
                 </Form.Group>
               </Col>
@@ -109,6 +120,7 @@ const Profile = () => {
                     name="phoneNo"
                     value={user.phoneNo}
                     onChange={handleChange}
+                    style={{ cursor: editMode ? 'auto' : 'not-allowed' }}
                     readOnly={!editMode}
                   />
                 </Form.Group>
@@ -117,12 +129,18 @@ const Profile = () => {
                 <Form.Group controlId="formGender">
                   <Form.Label>Gender</Form.Label>
                   <Form.Control
-                    type="text"
+                    as="select"
                     name="gender"
                     value={user.gender}
                     onChange={handleChange}
-                    readOnly={!editMode}
-                  />
+                    disabled={!editMode}
+                    style={{ cursor: editMode ? 'auto' : 'not-allowed' }} // Set cursor style
+                  >
+                    <option value="">Select Gender</option>
+                    {genderOptions.map((gender) => (
+                      <option key={gender} value={gender}>{gender}</option>
+                    ))}
+                  </Form.Control>
                 </Form.Group>
               </Col>
             </Row>
@@ -131,19 +149,25 @@ const Profile = () => {
                 <Form.Group controlId="formState">
                   <Form.Label>State</Form.Label>
                   <Form.Control
-                    type="text"
+                    as="select"
                     name="state"
                     value={user.state}
                     onChange={handleChange}
-                    readOnly={!editMode}
-                  />
+                    disabled={!editMode}
+                    style={{ cursor: editMode ? 'auto' : 'not-allowed' }} // Set cursor style
+                  >
+                    <option value="">Select State</option>
+                    {stateOptions.map((state) => (
+                      <option key={state} value={state}>{state}</option>
+                    ))}
+                  </Form.Control>
                 </Form.Group>
               </Col>
             </Row>
           </Form>
           <Row className="mt-4">
             <Col className="text-center">
-              <Button variant={editMode ? "success" : "primary"} onClick={handleEdit}>
+              <Button className='editbtn' variant={editMode ? "success" : "primary"} onClick={handleEdit}>
                 {editMode ? 'Save' : 'Edit'}
               </Button>
             </Col>
