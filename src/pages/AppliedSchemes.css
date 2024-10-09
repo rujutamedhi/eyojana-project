@@ -43,7 +43,7 @@ h2 {
 
 .application-card h3 {
   margin: 0 0 10px 0; 
-  color: #090200; 
+  color: #6f1b04; 
   flex-grow: 1; 
 }
 
@@ -64,5 +64,5 @@ h2 {
 }
 
 .application-card button:hover {
-  background-color: #758c004d; 
+  background-color: #8c6900c5; 
 }

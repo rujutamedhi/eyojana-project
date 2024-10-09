@@ -1,11 +1,8 @@
 import React from "react";
 import './admin.css';
 import img1 from '../images/adminhome.png';
-// import addnew from '../images/addnew.png';
 import { Link } from 'react-router-dom';
-// import { AuthProvider } from "../components/AuthContext";
-// import { useAuth } from "../components/AuthContext";
-import  AdminNav  from '../components/adminNav';
+import AdminNav from '../components/adminNav';
 
 const categories = [
     { text: "Agriculture, Rural & Environment" },
@@ -27,23 +24,20 @@ const categories = [
 
 function Admin() {
     return (
-        <div>
+        <div className="admin-profile-container">
             <header>
-                < AdminNav />
+                <AdminNav />
             </header>
 
-            <div>
-                <img src={img1} alt="Admin" className="adm" />
+            <div className="admin-header-img">
+                <img src={img1} alt="Admin" className="admin-profile-img" />
             </div>
-<br>
-</br>
-            <div className="sch">
+
+            <div className="admin-scheme-section">
                 <h3 align="center">Applications For Schemes:</h3>
-                <div className="cat">
+                <div className="admin-category-list">
                     {categories.map((category, index) => (
-                        
-                        <button key={index} className="btn2" >
-                            
+                        <button key={index} className="admin-category-btn">
                             <h4>{category.text}</h4>
                         </button>
                     ))}
@@ -54,4 +48,3 @@ function Admin() {
 }
 
 export default Admin;
-
