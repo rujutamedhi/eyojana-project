@@ -72,6 +72,11 @@ h2 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.schemedoc{
+    height: 250px;
+
+}
+
 .scheme-card h4 {
     margin: 0 0 10px 0;
     color: #964734;
@@ -90,5 +95,5 @@ h2 {
 }
 
 .schemenm {
-    height: 200px;
+    height: 160px;
 }

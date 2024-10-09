@@ -16,6 +16,7 @@ const UserSchemes = () => {
     const navigate = useNavigate(); 
     const [formData, setFormData] = useState(null);
   
+    const [selectedDoc, setSelectedDoc] = useState(null);
     useEffect(() => {
         if (!isLoggedIn) {
             navigate('/login');
@@ -93,6 +94,10 @@ const UserSchemes = () => {
         navigate('/schemeform', { state: { schemeName, user_id, documents, _id } })
     };
 
+    const handleDocumentClick = (docName) => {
+        setSelectedDoc(docName); // Set the clicked document name
+      };
+
     return (
         <div className="user-schemes-container">
             <h2>Your Applied Schemes</h2>
@@ -111,10 +116,27 @@ const UserSchemes = () => {
                             <div className='schemenm'>
                             <h4>{scheme.schemename}</h4>
                             </div>
+                            <div className='schemedoc'>
+                            <h5>Documents</h5>
+                                <ul>
+                                {scheme.documents.map(doc => (
+                                    <li key={doc.document_name}>
+                                    <p>{doc.document_name}</p>
+                                    <img
+                                        src={`http://localhost:5000/api/schemes/${scheme._id}/documents/${doc.document_name}`}
+                                        alt={doc.document_name}
+                                        style={{ width: '200px', height: 'auto', cursor: 'pointer' }}
+                                        onClick={() => handleDocumentClick(doc.document_name)} 
+                                    />
+                                    </li>
+                                ))}
+                                </ul>
+
+                            </div>
                             <div>
                             <p>Status: <span className={`status-${scheme.status.toLowerCase()}`}>{scheme.status}</span></p>
                             {scheme.status.trim().toLowerCase() === 'reverted' && (
-                                <button onClick={() => handleEditClick(scheme.schemename, scheme.user_id, scheme.documents, scheme._id)}>Edit</button> 
+                                <button onClick={() => handleEditClick(scheme.schemename, scheme.user_id, scheme.documents, scheme._id)}>Edit</button>
                             )}
                             </div>
                             {isFormOpen && formData && (
@@ -135,5 +157,4 @@ const UserSchemes = () => {
 };
 
 export default UserSchemes;
-
 

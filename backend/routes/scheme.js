@@ -105,6 +105,22 @@ router.get('/:email', async (req, res) => {
   }
 });
 
+router.post('/get-scheme', async (req, res) => {
+  const email = req.params.email;
+  console.log('Received request for scheme:', email);
+
+  try {
+    const schemes = await Scheme.find({ email }); 
+    if (!schemes || schemes.length === 0) {
+      return res.status(404).json({ message: 'No applied schemes found for this email.' });
+    }
+    res.json(schemes);
+  } catch (error) {
+    console.error('Error fetching schemes:', error);
+    res.status(500).json({ message: 'Server error while fetching schemes.' });
+  }
+});
+
 router.post('/check', async (req, res) => {
   try {
     const { email, schemename } = req.body;
