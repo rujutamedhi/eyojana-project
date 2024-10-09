@@ -296,7 +296,7 @@ const SchemeForm = () => {
   };
 
   return (
-    <form onSubmit={combinedSubmit}>
+    <form className="form1" onSubmit={combinedSubmit}>
       <div>
         <h2>Apply for {schemeName}</h2>
       </div>
@@ -315,7 +315,7 @@ const SchemeForm = () => {
 
       <div className="form-group">
         <label>Email:</label>
-        <input
+        <input className="emailinput"
           type="email"
           name="email"
           value={email}
