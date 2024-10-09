@@ -10,8 +10,8 @@ const Profile = () => {
     email: '',
     phoneNo: '',
     gender: '',
-    state: '',
-    photo: ''
+    state: ''
+    
   });
 
   const loggedInUserEmail = localStorage.getItem('email'); // Assuming email is stored here after login
@@ -43,8 +43,28 @@ const Profile = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const handleEdit = () => {
-    setEditMode(!editMode);
+  const handleEdit = async () => {
+    if (editMode) {
+      // Save the updated data to the backend
+      try {
+        const response = await fetch(`http://localhost:5000/api/auth/update/${loggedInUserEmail}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(user) // Send the updated user data
+        });
+
+        if (response.ok) {
+          console.log('Profile updated successfully');
+        } else {
+          console.error('Failed to update profile');
+        }
+      } catch (error) {
+        console.error('Error updating profile:', error);
+      }
+    }
+    setEditMode(!editMode); // Toggle the edit mode
   };
 
   return (

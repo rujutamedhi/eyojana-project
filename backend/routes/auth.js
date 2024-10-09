@@ -178,4 +178,27 @@ router.get('/profile/:email', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+router.put('/update/:email', async (req, res) => {
+  const { email } = req.params;
+  const { username, phoneNo, gender, state } = req.body;
+
+  try {
+    // Find the user by email and update their details
+    const updatedUser = await User.findOneAndUpdate(
+      { email: email },
+      { username, phoneNo, gender, state },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(updatedUser); // Send the updated user data back to the frontend
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 module.exports = router;
