@@ -207,6 +207,7 @@ const SchemeForm = () => {
           setFormData((prevData) => ({
             ...prevData,
             user_id: response.data.user_id, // Set user_id from the response
+            documents: response.data.documents || [],
           }));
         }
       } catch (err) {
@@ -215,10 +216,63 @@ const SchemeForm = () => {
       }
     };
 
+    // const fetchApplicationData = async () => {
+    //   try {
+    //     const response = await axios.post(`http://localhost:5000/api/schemes/${_id}`, {
+    //       email: formData.email,
+    //       schemename: formData.schemename,
+    //     });
+
+    //     if (response.data) {
+    //       setFormData({
+    //         ...formData,
+    //         user_id: response.data.user_id,
+    //         category: response.data.category,
+    //         status: response.data.status,
+    //         documents: response.data.documents || [], // Prefill documents
+    //       });
+    //     }
+    //   } catch (err) {
+    //     console.error("Error fetching application data:", err);
+    //     setError("Failed to fetch application data.");
+    //   }
+    // };
+
+
     if (email) {
       fetchUserId(); // Only fetch if email is available
+    
     }
-  }, [email]);
+  }, [email, formData.schemename]);
+
+  // useEffect(() => {
+  //   // Fetch the existing data based on schemeName and email
+  //   const fetchApplicationData = async () => {
+  //     try {
+  //       const response = await axios.post("http://localhost:5000/api/schemes/get-scheme", {
+  //         email: formData.email,
+  //         schemename: formData.schemename,
+  //       });
+
+  //       if (response.data) {
+  //         setFormData({
+  //           ...formData,
+  //           user_id: response.data.user_id,
+  //           category: response.data.category, // Fill in the category
+  //           status: response.data.status,
+  //           documents: response.data.documents || [], // Prefill documents
+  //         });
+  //       }
+  //     } catch (err) {
+  //       console.error("Error fetching application data:", err);
+  //       setError("Failed to fetch application data.");
+  //     }
+  //   };
+
+  //   if (formData.email && formData.schemename) {
+  //     fetchApplicationData();
+  //   }
+  // }, [formData.email, formData.schemename]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -246,6 +300,7 @@ const SchemeForm = () => {
       const res = await axios.post("http://localhost:5000/api/schemes/check", {
         email: formData.email,
         schemename: formData.schemename,
+        documents: formData.documents,
       });
       return res.data.exists; // Returns true if application exists
     } catch (err) {
@@ -259,10 +314,7 @@ const SchemeForm = () => {
     e.preventDefault();
     
     const isExisting = await checkExistingApplication();
-    if (isExisting) {
-      setError("You have already applied for this scheme.");
-      return;
-    }
+    
 
     const data = new FormData();
     // Append form data to FormData object
@@ -271,6 +323,7 @@ const SchemeForm = () => {
     data.append("email", formData.email);
     data.append("status", formData.status);
     data.append("category", formData.category);
+    
 
     // Append each document with its name to the form data
     formData.documents.forEach((document, index) => {
@@ -281,16 +334,27 @@ const SchemeForm = () => {
     });
 
     try {
-      const res = await axios.post("http://localhost:5000/api/schemes", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log("Response:", res.data);
-      setSuccess("Application submitted successfully!"); // Set success message
-      // Optionally navigate to another page
+      if (isExisting) {
+        // Perform a PUT request if the application exists
+        const res = await axios.patch("http://localhost:5000/api/schemes/update", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("Response:", res.data);
+        setSuccess("Application updated successfully!"); // Set success message
+      } else {
+        // Perform a POST request if the application does not exist
+        const res = await axios.post("http://localhost:5000/api/schemes", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("Response:", res.data);
+        setSuccess("Application submitted successfully!"); // Set success message
+      }
     } catch (err) {
-      setError(err.response?.data.message || err.message); // Set error message to state
+      setError(err.response?.data.message || err.message);
       console.error("Error uploading files:", err);
     }
   };
@@ -356,4 +420,3 @@ const SchemeForm = () => {
 };
 
 export default SchemeForm;
-
