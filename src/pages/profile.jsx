@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './profile.css';
@@ -6,13 +6,37 @@ import './profile.css';
 const Profile = () => {
   const [editMode, setEditMode] = useState(false);
   const [user, setUser] = useState({
-    username: 'MadhuraJangale',
-    email: 'madhura@gmail.com',
-    phoneNo: '9999999999',
-    gender: 'female',
-    state: 'Maharashtra',
-    photo: 'https://via.placeholder.com/150'
+    username: '',
+    email: '',
+    phoneNo: '',
+    gender: '',
+    state: '',
+    photo: ''
   });
+
+  const loggedInUserEmail = localStorage.getItem('email'); // Assuming email is stored here after login
+
+  // Fetch user data based on email
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/auth/profile/${loggedInUserEmail}`); // Adjust the API endpoint as per your backend
+        const data = await response.json();
+        
+        if (response.ok) {
+          setUser(data);
+        } else {
+          console.error(data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    if (loggedInUserEmail) {
+      fetchUserData();
+    }
+  }, [loggedInUserEmail]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,9 +50,7 @@ const Profile = () => {
   return (
     <Container className="profile-page">
       <Row className="justify-content-md-center">
-        <Col md="4" className="text-center">
-          <img src={user.photo} alt="User" className="profile-image rounded-circle" />
-        </Col>
+        
         <Col md="8">
           <h2 className="my-profile-title">My Profile</h2>
           <Form>

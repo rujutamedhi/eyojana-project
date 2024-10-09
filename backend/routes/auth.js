@@ -153,4 +153,29 @@ router.get('/:email', async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+router.get('/profile/:email', async (req, res) => {
+  const email = req.params.email;
+
+  try {
+    // Find user by email
+    const user = await User.findOne({ email: email });
+    console.log(user)
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Send back user data (exclude password or sensitive information)
+    res.json({
+      username: user.username,
+      email: user.email,
+      phoneNo: user.phone_number,
+      gender: user.gender,
+      state: user.state,
+      photo: user.photo
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 module.exports = router;
