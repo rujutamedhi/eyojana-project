@@ -88,11 +88,22 @@ const UserSchemes = () => {
     //     }
     //   };
 
-      const handleEditClick = (schemeName, user_id, documents, _id) => {
-        // Assuming you're using React Router's useNavigate hook for navigation
-        navigate('/schemeform', { state: { schemeName, user_id, documents, _id } })
+    const handleEditClick = (schemeName, user_id, documents, _id) => {
+        // Passing all documents along with the other necessary data
+        navigate('/schemeform', { state: { schemeName, user_id, documents, _id ,docName} });
+        console.log(documents)
     };
 
+    const [selectedDoc, setSelectedDoc] = useState(null); // Track selected document for modal view
+
+    const handleDocumentClick = (docName, schemeId) => {
+        setSelectedDoc({ docName, schemeId }); // Set the selected document with schemeId
+    };
+
+    const closeDocumentViewer = () => {
+        setSelectedDoc(null); // Close document viewer
+    };
+    
     return (
         <div className="user-schemes-container">
             <h2>Your Applied Schemes</h2>
@@ -108,31 +119,61 @@ const UserSchemes = () => {
                 <div className="schemes-grid">
                     {filteredSchemes.map((scheme) => (
                         <div key={scheme._id} className="scheme-card">
-                            <div className='schemenm'>
-                            <h4>{scheme.schemename}</h4>
+                            <div className="schemenm">
+                                <h4>{scheme.schemename}</h4>
                             </div>
                             <div>
-                            <p>Status: <span className={`status-${scheme.status.toLowerCase()}`}>{scheme.status}</span></p>
-                            {scheme.status.trim().toLowerCase() === 'reverted' && (
-                                <button onClick={() => handleEditClick(scheme.schemename, scheme.user_id, scheme.documents, scheme._id)}>Edit</button> 
-                            )}
+                                <p>Status: <span className={`status-${scheme.status.toLowerCase()}`}>{scheme.status}</span></p>
+
+                                {/* Display documents */}
+                                <h5>Documents</h5>
+                                <ul>
+                                    {scheme.documents.map(doc => (
+                                        <li key={doc.document_name}>
+                                            <p>{doc.document_name}</p>
+                                            <img
+                                                src={`http://localhost:5000/api/schemes/${scheme._id}/documents/${doc.document_name}`}
+                                                alt={doc.document_name}
+                                                style={{ width: '100px', height: 'auto', cursor: 'pointer' }}
+                                                onClick={() => handleDocumentClick(doc.document_name, scheme._id)}
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                {/* Edit Button */}
+                                {scheme.status.trim().toLowerCase() === 'reverted' && (
+    <button onClick={() => handleEditClick(scheme.schemename, scheme.user_id, doc.document_name, scheme.documents, scheme._id)}>
+        Edit
+    </button> 
+)}
+
                             </div>
-                            {isFormOpen && formData && (
-                                <EditForm 
-                                    formData={formData} 
-                                    onFormSubmit={handleFormSubmit} 
-                                    onClose={() => setIsFormOpen(false)}
-                                />
-                            )}
                         </div>
                     ))}
                 </div>
             ) : (
                 <p>No schemes found.</p>
             )}
+
+            {/* Document Viewer Modal */}
+            {selectedDoc && (
+                <div className="document-viewer-overlay" onClick={closeDocumentViewer}>
+                    <div className="document-viewer-content" onClick={e => e.stopPropagation()}>
+                        <h3>{selectedDoc.docName}</h3>
+                        <img
+                            src={`http://localhost:5000/api/schemes/${selectedDoc.schemeId}/documents/${selectedDoc.docName}`}
+                            alt={selectedDoc.docName}
+                            style={{ maxWidth: '90%', maxHeight: '90%' }}
+                        />
+                        <button className="close-button" onClick={closeDocumentViewer}>Close</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
+
 
 export default UserSchemes;
 
