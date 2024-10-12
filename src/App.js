@@ -18,6 +18,7 @@ import AppliedSchemes from './pages/AppliedSchemes';
 import AdminNav from './components/adminNav';
 import ApprovedSchemes from './pages/ApprovedSchemes';
 import RevertedSchemes from './pages/RevertedSchemes';
+import Dashboard from './pages/dashboard';
 import  UserSchemes from './pages/UserSchemes' ;
 import AuthContext from './components/AuthContext';
 import Profile from './pages/profile';
@@ -51,6 +52,7 @@ const MainApp = () => {
         <Route path="/adminhome/appliedschemes" element={<AppliedSchemes />} />
         <Route path="/adminhome/approvedschemes" element={<ApprovedSchemes/>} />
         <Route path="/adminhome/revertedschemes" element={<RevertedSchemes/>} />
+        <Route path="/adminhome/dashboard" element={<Dashboard />} />
         <Route path="/myapplications" element={<UserSchemes/>}/>
         <Route path="/profile" element={<Profile />} />
 
