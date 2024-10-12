@@ -4,28 +4,44 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
 import './schemeform.css';
 
-const SchemeForm = () => {
+const SchemeForm = () => {  
   const location = useLocation();
   const navigate = useNavigate();
-
+  const { schemeName } = location.state || {};
+  
   const currentcategory = location.state?.currentcategory || "";
+
   const { email: authEmail } = useAuth(); 
   const [email, setEmail] = useState(authEmail);
-  const [applications, setApplications] = useState([]);
-  const { schemeName, user_id, documents, _id,docName } = location.state || {};
+  const sendEmail = async (e) => {
+    e.preventDefault();
+  const data = {
+    email,
+  };
+  const response = await axios.post(
+    "http://localhost:5000/api/sendemail",
+    data
+  );
+  console.log(response.data);
+  };
+  const combinedSubmit = (e) => {
+    e.preventDefault(); 
+    handleSubmit(e);
+    sendEmail(e);
+  };
+
   const [formData, setFormData] = useState({
-    schemename: location.state?.schemeName || "",
-    user_id: "", 
+    schemename: schemeName || "",
+    user_id: "",
     email: email || "", 
     status: "pending",
-    category: currentcategory, 
-    documents: [],
+    category: currentcategory,
+    documents: [], 
   });
 
   const [error, setError] = useState(""); 
   const [success, setSuccess] = useState(""); 
 
-  // Fetch user ID based on email
   useEffect(() => {
     const fetchUserId = async () => {
       try {
@@ -33,7 +49,8 @@ const SchemeForm = () => {
         if (response.data.user_id) {
           setFormData((prevData) => ({
             ...prevData,
-            user_id: response.data.user_id, // Set user_id from the response
+            user_id: response.data.user_id, 
+            documents: response.data.documents || [],
           }));
         }
       } catch (err) {
@@ -42,10 +59,12 @@ const SchemeForm = () => {
       }
     };
 
+    
     if (email) {
-      fetchUserId(); // Only fetch if email is available
+      fetchUserId(); 
+    
     }
-  }, [email]);
+  }, [email, formData.schemename]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -61,7 +80,7 @@ const SchemeForm = () => {
   const handleDocumentChange = (index, e) => {
     const updatedDocuments = [...formData.documents];
     if (e.target.type === "file") {
-      updatedDocuments[index].file = e.target.files[0];
+      updatedDocuments[index].file = e.target.files[0]; 
     } else {
       updatedDocuments[index].name = e.target.value;
     }
@@ -73,8 +92,9 @@ const SchemeForm = () => {
       const res = await axios.post("http://localhost:5000/api/schemes/check", {
         email: formData.email,
         schemename: formData.schemename,
+        documents: formData.documents,
       });
-      return res.data.exists; // Returns true if application exists
+      return res.data.exists; 
     } catch (err) {
       console.error("Error checking existing application:", err);
       setError("Error checking existing application.");
@@ -86,10 +106,7 @@ const SchemeForm = () => {
     e.preventDefault();
     
     const isExisting = await checkExistingApplication();
-    if (isExisting) {
-      setError("You have already applied for this scheme.");
-      return;
-    }
+    
 
     const data = new FormData();
     data.append("schemename", formData.schemename);
@@ -97,8 +114,7 @@ const SchemeForm = () => {
     data.append("email", formData.email);
     data.append("status", formData.status);
     data.append("category", formData.category);
-
-    // Append each document with its name to the form data
+    
     formData.documents.forEach((document, index) => {
       if (document.file) {
         data.append("documents", document.file);
@@ -107,102 +123,87 @@ const SchemeForm = () => {
     });
 
     try {
-      const res = await axios.post("http://localhost:5000/api/schemes", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log("Response:", res.data);
-      setSuccess("Application submitted successfully!"); // Set success message
-      // Optionally navigate to another page
+      if (isExisting) {
+        const res = await axios.patch("http://localhost:5000/api/schemes/update", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("Response:", res.data);
+        setSuccess("Application updated successfully!"); 
+      } else {
+        const res = await axios.post("http://localhost:5000/api/schemes", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("Response:", res.data);
+        setSuccess("Application submitted successfully!");
+      }
     } catch (err) {
-      setError(err.response?.data.message || err.message); // Set error message to state
+      setError(err.response?.data.message || err.message);
       console.error("Error uploading files:", err);
     }
   };
 
   return (
-    <div>
-      <form className="scheme-form" onSubmit={handleSubmit}>
-        <div className="form-header">
-          <h2>Apply for {formData.schemename}</h2>
-        </div>
-        {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">{success}</div>}
-        
-        {/* Display email at the top */}
-        <div className="form-group">
-          <label>Email:</label>
+    <form className="form1" onSubmit={combinedSubmit}>
+      <div>
+        <h2>Apply for {schemeName}</h2>
+      </div>
+      {error && <div className="error-message">{error}</div>}
+      {success && <div className="success-message">{success}</div>}
+      
+      <div className="form-group" style={{display: "none"}}>
+        <label>User ID:</label>
+        <input
+          type="text"
+          name="user_id"
+          value={formData.user_id}
+          readOnly
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Email:</label>
+        <input className="emailinput"
+          type="email"
+          name="email"
+          value={email}
+          onChange={(e) => {
+            handleInputChange(e);
+            setEmail(e.target.value);
+          }}
+          required
+          readOnly
+        />
+      </div>
+
+      <h4>Documents:</h4>
+      {formData.documents.map((document, index) => (
+        <div key={index} className="document-input-group">
           <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleInputChange}
+            type="text"
+            placeholder="Document Name"
+            value={document.name}
+            onChange={(e) => handleDocumentChange(index, e)}
             required
-            readOnly
+          />
+          <input
+            type="file"
+            onChange={(e) => handleDocumentChange(index, e)}
+            required
           />
         </div>
+      ))}
+      
+      <button type="button" className="buttons add-document-btn" onClick={addDocument}>
+        Add Document
+      </button>
 
-        <h4>Existing Documents:</h4>
-        {applications.length === 0 && <p>No existing applications found.</p>}
-        {applications.map((app) => (
-          <div key={app._id} className="existing-document">
-            <strong>{app.schemename}:</strong> 
-            {app.documents.map((doc, index) => (
-              <span key={index}>
-                <a href={`http://localhost:5000/api/schemes/document/${email}/${schemeName}/${docName}`} target="_blank" rel="noopener noreferrer">
-                  {doc.document_name}
-                </a>
-                {index < app.documents.length - 1 && ", "}
-              </span>
-            ))}
-          </div>
-        ))}
-        
-        <h4>Add New Documents:</h4>
-        {formData.documents.length === 0 && <p>No documents added.</p>}
-        {formData.documents.map((document, index) => (
-          <div key={index} className="document-input-group">
-            <input
-              type="text"
-              placeholder="Document Name"
-              value={document.name}
-              onChange={(e) => handleDocumentChange(index, e)}
-              required
-            />
-            <input
-              type="file"
-              onChange={(e) => handleDocumentChange(index, e)}
-              required
-            />
-            {document.file && <span>Uploaded: {document.file.name}</span>}
-          </div>
-        ))}
-        
-        <button type="button" className="buttons add-document-btn" onClick={addDocument}>
-          Add Document
-        </button>
-
-        <button type="submit" className="buttons submit-btn">Submit</button>
-      </form>
-
-      <div className="applications-list">
-        <h3>Your Applications</h3>
-        {applications.length === 0 ? (
-          <p>No applications found.</p>
-        ) : (
-          <ul>
-            {applications.map((app) => (
-              <li key={app._id}>
-                <strong>{app.schemename}</strong> - Status: {app.status}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </div>
+      <button type="submit" className="buttons submit-btn">Submit</button>
+    </form>
   );
 };
 
 export default SchemeForm;
-

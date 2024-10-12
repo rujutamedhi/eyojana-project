@@ -27,7 +27,7 @@ const UserSchemes = () => {
         const fetchSchemes = async () => {
             if (email) {
                 try {
-                    const response = await axios.get(http://localhost:5000/api/schemes/${email});
+                    const response = await axios.get(`http://localhost:5000/api/schemes/${email}`);
                     setSchemes(response.data);
                     setFilteredSchemes(response.data); // Initialize filtered schemes
                 } catch (error) {
@@ -50,7 +50,7 @@ const UserSchemes = () => {
          
         else {
             const filtered = schemes.filter(scheme => scheme.status.trim().toLowerCase() === status.toLowerCase());
-            console.log(Filtering for status: ${status}, Found:, filtered); 
+            console.log(`Filtering for status: ${status}, Found:`, filtered); 
             setFilteredSchemes(filtered);
             setShowButton(false);
         }
@@ -59,7 +59,7 @@ const UserSchemes = () => {
     // const handleButtonClick = async (schemeId) => {
     //     console.log('Scheme ID being passed:', schemeId); // Add this to log the ID
     //     try {
-    //         const response = await axios.get(http://localhost:3000/api/schemes/${schemeId});
+    //         const response = await axios.get(`http://localhost:3000/api/schemes/${schemeId}`);
     //         console.log('Scheme data:', response.data); // Log the scheme data to ensure it's fetched correctly
     //         setFormData(response.data); 
     //         setIsFormOpen(true); 
@@ -71,7 +71,7 @@ const UserSchemes = () => {
     const handleFormSubmit = async (updatedData) => {
         try {
             // Submit the updated data to the backend
-            await axios.put(/api/schemes/${formData.id}, updatedData);
+            await axios.put(`/api/schemes/${formData.id}`, updatedData);
             console.log('Form updated successfully');
             setIsFormOpen(false); // Close the form modal
         } catch (error) {
@@ -81,7 +81,7 @@ const UserSchemes = () => {
 
     // const handleEdit = async (schemeId) => {
     //     try {
-    //       const response = await axios.get(http://localhost:5000/api/schemes/${schemeId});
+    //       const response = await axios.get(`http://localhost:5000/api/schemes/${schemeId}`);
     //       const schemeData = response.data;
     //       navigate("/edit-form", { state: { schemeData } });
     //     } catch (err) {
@@ -123,7 +123,7 @@ const UserSchemes = () => {
                                     <li key={doc.document_name}>
                                     <p>{doc.document_name}</p>
                                     <img
-                                        src={http://localhost:5000/api/schemes/${scheme._id}/documents/${doc.document_name}}
+                                        src={`http://localhost:5000/api/schemes/${scheme._id}/documents/${doc.document_name}`}
                                         alt={doc.document_name}
                                         style={{ width: '200px', height: 'auto', cursor: 'pointer' }}
                                         onClick={() => handleDocumentClick(doc.document_name)} 
@@ -134,7 +134,7 @@ const UserSchemes = () => {
 
                             </div> */}
                             <div>
-                            <p>Status: <span className={status-${scheme.status.toLowerCase()}}>{scheme.status}</span></p>
+                            <p>Status: <span className={`status-${scheme.status.toLowerCase()}`}>{scheme.status}</span></p>
                             {scheme.status.trim().toLowerCase() === 'reverted' && (
                                 <button onClick={() => handleEditClick(scheme.schemename, scheme.user_id, scheme.documents, scheme._id)}>Edit</button>
                             )}
