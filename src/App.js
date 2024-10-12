@@ -21,7 +21,6 @@ import RevertedSchemes from './pages/RevertedSchemes';
 import  UserSchemes from './pages/UserSchemes' ;
 import AuthContext from './components/AuthContext';
 import Profile from './pages/profile';
-import EditForm from './pages/EditForm';
 
 const MainApp = () => {
   const location = useLocation(); // Now this is inside Router context
@@ -54,8 +53,6 @@ const MainApp = () => {
         <Route path="/adminhome/revertedschemes" element={<RevertedSchemes/>} />
         <Route path="/myapplications" element={<UserSchemes/>}/>
         <Route path="/profile" element={<Profile />} />
-        <Route path="/edit-form" element={<EditForm />} />
-        <Route path='/schemeform/:schemeId' element={<SchemeForm />} />
 
       </Routes>
     </div>

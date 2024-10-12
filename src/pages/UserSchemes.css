@@ -72,7 +72,7 @@ h2 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.scheme-card h4 {
+.scheme-card h3 {
     margin: 0 0 10px 0;
     color: #964734;
 }
@@ -87,8 +87,4 @@ h2 {
 
 .status-rejected {
     color: red; /* Rejected status color */
-}
-
-.schemenm {
-    height: 200px;
 }
