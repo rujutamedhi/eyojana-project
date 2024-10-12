@@ -89,21 +89,6 @@ app.use('/api/schemes/:email' , schemeRoutes);
       res.status(500).json({ error: "Server error while sending email" });
     }
   });
-
-  // Assuming you have Mongoose or MongoDB setup
-app.get('/api/schemes/:id', async (req, res) => {
-  try {
-      const scheme = await Scheme.findById(req.params.id);
-      if (!scheme) {
-          return res.status(404).send('Scheme not found');
-      }
-      res.json(scheme); // Send the scheme data back as JSON
-  } catch (error) {
-      console.error('Error fetching scheme:', error);
-      res.status(500).send('Internal server error');
-  }
-});
-
   
 
 const PORT = process.env.PORT || 5000;
