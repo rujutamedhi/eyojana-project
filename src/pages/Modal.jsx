@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Modal.css'; // For styling
-import { sendRevertEmail } from './statusEmail'; // Import the email sending function
+import './Modal.css'; 
+import { sendRevertEmail } from './statusEmail'; 
 
 const Modal = ({ application, onClose }) => {
   const [status, setStatus] = useState(application.status);
   const [selectedDoc, setSelectedDoc] = useState(null);
-  const [userDetails, setUserDetails] = useState(null); // State to store user details
-  const [showRevertMessage, setShowRevertMessage] = useState(false); // Track if reverted is selected
-  const [revertMessage, setRevertMessage] = useState(''); // Message for reverted status
-
-  // Fetch user details based on the application email when modal opens
+  const [userDetails, setUserDetails] = useState(null);
+  const [showRevertMessage, setShowRevertMessage] = useState(false); 
+  const [revertMessage, setRevertMessage] = useState('');
   useEffect(() => {
     const fetchUserDetails = async (email) => {
       try {
         const response = await axios.get(`http://localhost:5000/api/auth/email`, {
-          params: { email }, // Pass email as query parameter
+          params: { email }, 
         });
         console.log('User details:', response.data);
-        setUserDetails(response.data); // Update state with user details
+        setUserDetails(response.data); 
       } catch (error) {
         console.error('Error fetching user details:', error);
       }
     };
 
-    if (application.email) { // Ensure application has an email
-      fetchUserDetails(application.email); // Pass the email of the application
+    if (application.email) { 
+      fetchUserDetails(application.email); 
     }
   }, [application.email]);
 
@@ -33,27 +31,27 @@ const Modal = ({ application, onClose }) => {
     try {
       const data = { status };
   
-      // Add revert message only if status is "Reverted"
       if (status === 'reverted') {
-        data.revertMessage = revertMessage; // Include revertMessage in the payload
+        data.revertMessage = revertMessage; 
       }
-  
-      // Update status in the backend
       await axios.patch(
         `http://localhost:5000/api/schemes/update-status/${application.email}/${application.schemename}`,
         data
       );
-  
-      // Prepare the email subject and message based on the status
+
       const subject = `Your application status for ${application.schemename} has been updated`;
-      let message = `Your application has been ${status}.`;
+      let message = `Your application for ${application.schemename} has been ${status}.`;
   
-      // Customize email content for "Reverted" status
       if (status === 'reverted') {
-        message = `Your application has been reverted with the following reason: ${revertMessage}`;
+        message = `Your application for ${application.schemename} has been reverted with the following reason: ${revertMessage}`;
       }
   
-      // Call sendRevertEmail function to send the email
+      if (status === 'approved') {
+        message = `Your application for ${application.schemename} has been: ${status}`;
+      }
+      if (status === 'rejected') {
+        message = `Your application for ${application.schemename} has been : ${status}`;
+      }
       const emailSent = await sendRevertEmail(application.email, message);
       if (emailSent) {
         alert('Email sent successfully');
@@ -62,7 +60,7 @@ const Modal = ({ application, onClose }) => {
       }
   
       alert('Status updated successfully');       
-      onClose(); // Close the modal after updating
+      onClose();
     } catch (error) {
       console.error('Error updating status:', error);
     }
@@ -70,17 +68,17 @@ const Modal = ({ application, onClose }) => {
   
 
   const handleDocumentClick = (docName) => {
-    setSelectedDoc(docName); // Set the clicked document name
+    setSelectedDoc(docName); 
   };
 
   const closeDocumentViewer = () => {
-    setSelectedDoc(null); // Close the document viewer
+    setSelectedDoc(null);
   };
 
   const handleStatusChange = (e) => {
     const newStatus = e.target.value;
     setStatus(newStatus);
-    setShowRevertMessage(newStatus === 'reverted'); // Show message field if "Reverted" is selected
+    setShowRevertMessage(newStatus === 'reverted'); 
   };
 
   return (
@@ -91,11 +89,10 @@ const Modal = ({ application, onClose }) => {
         <p><strong>Email:</strong> {application.email}</p>
         <p><strong>Category:</strong> {application.category}</p>
 
-        {/* Displaying user details */}
         {userDetails && (
           <>
             <h3>User Details:</h3>
-            <p><strong>Name:</strong> {userDetails.username}</p> {/* Assuming username instead of name */}
+            <p><strong>Name:</strong> {userDetails.username}</p> 
             <p><strong>State:</strong> {userDetails.state}</p>
             <p><strong>Gender:</strong> {userDetails.gender}</p>
           </>
@@ -124,7 +121,6 @@ const Modal = ({ application, onClose }) => {
           <option value="reverted">Reverted</option>
         </select>
 
-        {/* Show text field when "Reverted" is selected */}
         {showRevertMessage && (
           <div className="revert-message">
             <h4>Reason for Reversion:</h4>
@@ -140,8 +136,6 @@ const Modal = ({ application, onClose }) => {
 
         <button className="update-button" onClick={handleUpdateStatus}>Update Status</button>
       </div>
-
-      {/* Document Viewer Modal */}
       {selectedDoc && (
         <div className="document-viewer-overlay" onClick={closeDocumentViewer}>
           <div className="document-viewer-content" onClick={e => e.stopPropagation()}>
