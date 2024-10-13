@@ -30,7 +30,7 @@ const SchemeSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    maxlength: 100
+    maxlength: 100  
   },
   status: {
     type: String,

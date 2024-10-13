@@ -1,54 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Pie } from 'react-chartjs-2';
-import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
-
-Chart.register(ArcElement, Tooltip, Legend); // Register Chart.js components
+import {
+  PieChart,
+  Pie,
+  Tooltip,
+  BarChart,
+  XAxis,
+  YAxis,
+  Legend,
+  CartesianGrid,
+  Bar,
+} from 'recharts';
+import './Dashboard.css'; // Import the CSS
 
 const Dashboard = () => {
-  const [chartData, setChartData] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [userCount, setUserCount] = useState(0);
+  const [schemeData, setSchemeData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/statistics');
-        const { categories } = response.data;
+        const userResponse = await axios.get('http://localhost:5000/api/statistics/users/count');
+        setUserCount(userResponse.data.userCount);
 
-        const labels = Object.keys(categories); // e.g., ['Category1', 'Category2']
-        const data = Object.values(categories); // e.g., [10, 15]
-
-        // Set up data for the Pie chart
-        setChartData({
-          labels: labels,
-          datasets: [
-            {
-              label: 'Schemes by Category',
-              data: data,
-              backgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#FFCE56',
-                '#4BC0C0',
-                '#9966FF',
-                '#FF9F40'
-              ],
-              hoverBackgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#FFCE56',
-                '#4BC0C0',
-                '#9966FF',
-                '#FF9F40'
-              ]
-            }
-          ]
-        });
-
-        setLoading(false);
+        const schemeResponse = await axios.get('http://localhost:5000/api/statistics/schemes/count');
+        setSchemeData(schemeResponse.data);
       } catch (error) {
-        console.error('Error fetching chart data:', error);
-        setLoading(false);
+        console.error('Error fetching data:', error);
       }
     };
 
@@ -57,15 +35,51 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <h1>Dashboard</h1>
-      {loading ? (
-        <p>Loading chart...</p>
-      ) : (
-        <div>
-          <h2>Schemes by Category</h2>
-          <Pie data={chartData} />
+      <h1>Social Media Users and Scheme Data</h1>
+      <h2>Total Users: {userCount}</h2>
+
+      {/* Flex container to align charts side by side */}
+      <div className="chart-container">
+        {/* Pie Chart */}
+        <div className="pie-chart">
+          <PieChart width={500} height={400}> {/* Increased size */}
+            <Pie
+              dataKey="appliedUsers"
+              isAnimationActive={false}
+              data={schemeData}
+              cx={250} // Centering the pie chart
+              cy={200} // Centering the pie chart
+              outerRadius={80}
+              fill="#8884d8" // Default color for the pie chart
+              label={(entry) => entry._id}
+            />
+            <Tooltip />
+          </PieChart>
         </div>
-      )}
+
+        {/* Bar Chart */}
+        <div className="bar-chart">
+          <BarChart
+            width={600} // Increased width
+            height={400} // Increased height
+            data={schemeData}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 80,
+              bottom: 5,
+            }}
+            barSize={20}
+          >
+            <XAxis dataKey="_id" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Bar dataKey="appliedUsers" fill="#8884d8" background={{ fill: '#eee' }} />
+          </BarChart>
+        </div>
+      </div>
     </div>
   );
 };
