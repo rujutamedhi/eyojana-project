@@ -16,7 +16,6 @@ import './Dashboard.css'; // Import the CSS
 const Dashboard = () => {
   const [userCount, setUserCount] = useState(0);
   const [schemeData, setSchemeData] = useState([]); // Full scheme data for charts
-  const [filteredSchemeData, setFilteredSchemeData] = useState([]); // Store filtered scheme data for charts
   const [filteredSchemeNames, setFilteredSchemeNames] = useState([]); // Store filtered scheme names
   const [users, setUsers] = useState([]); // State to hold users
   const [selectedUser, setSelectedUser] = useState(''); // State for selected user
@@ -60,9 +59,6 @@ const Dashboard = () => {
       const response = await axios.get('http://localhost:5000/api/statistics/filterscheme', { params });
       setFilteredSchemeNames(response.data.map(scheme => scheme.schemeName)); // Store only names
 
-      // Store filtered scheme data for charts
-      setFilteredSchemeData(response.data); // Update with filtered data for charts
-
       // Show filtered schemes after fetching
       setShowFilteredSchemes(true);
     } catch (error) {
@@ -76,7 +72,6 @@ const Dashboard = () => {
       handleFilterChange(); // Automatically fetch names when filters change
     } else {
       setFilteredSchemeNames([]); // Reset if no filter is applied
-      setFilteredSchemeData([]); // Reset filtered scheme data
       setShowFilteredSchemes(false); // Hide filtered schemes if no filter
     }
   }, [selectedUser, selectedStatus]);
@@ -94,7 +89,7 @@ const Dashboard = () => {
             <Pie
               dataKey="appliedUsers"
               isAnimationActive={false}
-              data={filteredSchemeData.length > 0 ? filteredSchemeData : schemeData} // Use filtered data if available, otherwise use full data
+              data={schemeData} // Always use full scheme data for the pie chart
               cx={250} // Centering the pie chart
               cy={200} // Centering the pie chart
               outerRadius={80}
@@ -149,21 +144,19 @@ const Dashboard = () => {
         <button onClick={handleFilterChange}>Filter</button>
       </div>
 
-      {/* Display filtered scheme names only if showFilteredSchemes is true */}
+      {/* Display filtered scheme names in a simple list */}
       {showFilteredSchemes && (
         <div className="filtered-scheme-names">
           <h3>Filtered Scheme Names:</h3>
-          <div className="scheme-cards">
-            {filteredSchemeNames.length > 0 ? (
-              filteredSchemeNames.map((schemeName, index) => (
-                <div key={index} className="scheme-card">
-                  {schemeName} {/* Display scheme name */}
-                </div>
-              ))
-            ) : (
-              <p>No schemes found for the selected filters.</p>
-            )}
-          </div>
+          {filteredSchemeNames.length > 0 ? (
+            <ul>
+              {filteredSchemeNames.map((schemeName, index) => (
+                <li key={index}>{schemeName}</li> // Display scheme name in a simple list
+              ))}
+            </ul>
+          ) : (
+            <p>No schemes found for the selected filters.</p>
+          )}
         </div>
       )}
     </div>
