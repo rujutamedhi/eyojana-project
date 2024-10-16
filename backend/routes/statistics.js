@@ -45,25 +45,26 @@ router.get('/users', async (req, res) => {
 router.get('/filterscheme', async (req, res) => {
     try {
         // Extract query parameters for filtering
-        const { userId, status } = req.query; // Get userId and status from query parameters
+        const { user_id, status } = req.query; // Use user_id to match frontend query
 
         // Build the filter object
         const filter = {};
-        if (userId) {
-            filter.user_id = userId; // Use the correct field name for user ID
+        if (user_id) {
+            filter.user_id = user_id; // Correct field name for user ID
         }
         if (status) {
             filter.status = status; // Add status to the filter if provided
         }
 
         // Fetch schemes with relevant details based on filters
-        const schemes = await Scheme.find(filter).select('_id schemename user_id status'); // Fetch based on the filter
+        const schemes = await Scheme.find(filter).select('_id schemename user_id status'); // Ensure field names match your schema
         res.json(schemes);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server Error');
+        res.status(500).json({ error: 'Server Error', message: error.message }); // More informative error response
     }
 });
+
 
 
 

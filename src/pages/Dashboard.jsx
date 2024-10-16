@@ -46,7 +46,6 @@ const Dashboard = () => {
   // Function to handle filtering
   const handleFilterChange = async () => {
     try {
-      // Prepare parameters for filtering
       const params = {};
       if (selectedUser) {
         params.user_id = selectedUser; // Correct parameter name
@@ -54,12 +53,12 @@ const Dashboard = () => {
       if (selectedStatus) {
         params.status = selectedStatus; // Set status if a status is selected
       }
-
-      // Fetch filtered scheme names
+  
       const response = await axios.get('http://localhost:5000/api/statistics/filterscheme', { params });
-      setFilteredSchemeNames(response.data.map(scheme => scheme.schemeName)); // Store only names
-
-      // Show filtered schemes after fetching
+      console.log("API Response:", response.data); // Log the response to check its structure
+      setFilteredSchemeNames(response.data.map(scheme => scheme.schemename)); // Store only names
+      console.log("Filtered Scheme Names:", response.data.map(scheme => scheme.schemename)); // Log filtered names
+  
       setShowFilteredSchemes(true);
     } catch (error) {
       console.error('Error fetching filtered data:', error);
@@ -150,8 +149,8 @@ const Dashboard = () => {
           <h3>Filtered Scheme Names:</h3>
           {filteredSchemeNames.length > 0 ? (
             <ul>
-              {filteredSchemeNames.map((schemeName, index) => (
-                <li key={index}>{schemeName}</li> // Display scheme name in a simple list
+              {filteredSchemeNames.map((schemename, index) => (
+                <li key={index}>{schemename}</li> // Display scheme name in a simple list
               ))}
             </ul>
           ) : (

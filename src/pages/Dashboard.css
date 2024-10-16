@@ -67,33 +67,6 @@ h2 {
   transition: background-color 0.3s; /* Smooth transition */
 }
 
-.filtered-scheme-names {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #f9f9f9; /* Light background for contrast */
-  border-radius: 5px; /* Rounded corners */
-}
-
-.filtered-scheme-names h3 {
-  margin-bottom: 10px; /* Space between title and list */
-}
-
-.filtered-scheme-names ul {
-  list-style-type: none; /* Remove default list style */
-  padding: 0; /* Remove padding */
-}
-
-.filtered-scheme-names li {
-  margin: 5px 0; /* Space between items */
-  padding: 5px; /* Padding inside list items */
-  background-color: #e0f7fa; /* Light blue background */
-  border-radius: 5px; /* Rounded corners for list items */
-}
-
-.filtered-scheme-names {
-  margin-top: 20px;
-  padding: 10px;
-}
 
 .scheme-cards {
   display: flex;
@@ -114,4 +87,21 @@ h2 {
 
 .scheme-card:hover {
   transform: scale(1.05); /* Scale up on hover */
+}
+
+.filtered-scheme-names {
+  margin-top: 20px;
+}
+
+.filtered-scheme-names ul {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+}
+
+.filtered-scheme-names li {
+  margin: 5px 0; /* Space between list items */
+  background-color: #f4f4f4; /* Optional: Add a background color */
+  padding: 10px; /* Optional: Add padding for better appearance */
+  border-radius: 5px; /* Optional: Rounded corners */
 }
