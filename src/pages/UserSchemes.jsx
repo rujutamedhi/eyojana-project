@@ -17,7 +17,6 @@ const UserSchemes = () => {
     const [formData, setFormData] = useState(null);
   
     const [selectedDoc, setSelectedDoc] = useState(null);
-    const [selectedDoc, setSelectedDoc] = useState(null);
     useEffect(() => {
         if (!isLoggedIn) {
             navigate('/login');
@@ -98,11 +97,6 @@ const UserSchemes = () => {
     const handleDocumentClick = (docName) => {
         setSelectedDoc(docName); // Set the clicked document name
       };
-    };
-
-    const handleDocumentClick = (docName) => {
-        setSelectedDoc(docName); // Set the clicked document name
-      };
 
     return (
         <div className="user-schemes-container">
@@ -139,27 +133,9 @@ const UserSchemes = () => {
                                 </ul>
 
                             </div> */}
-                            {/* <div className='schemedoc'>
-                            <h5>Documents</h5>
-                                <ul>
-                                {scheme.documents.map(doc => (
-                                    <li key={doc.document_name}>
-                                    <p>{doc.document_name}</p>
-                                    <img
-                                        src={`http://localhost:5000/api/schemes/${scheme._id}/documents/${doc.document_name}`}
-                                        alt={doc.document_name}
-                                        style={{ width: '200px', height: 'auto', cursor: 'pointer' }}
-                                        onClick={() => handleDocumentClick(doc.document_name)} 
-                                    />
-                                    </li>
-                                ))}
-                                </ul>
-
-                            </div> */}
                             <div>
                             <p>Status: <span className={`status-${scheme.status.toLowerCase()}`}>{scheme.status}</span></p>
                             {scheme.status.trim().toLowerCase() === 'reverted' && (
-                                <button onClick={() => handleEditClick(scheme.schemename, scheme.user_id, scheme.documents, scheme._id)}>Edit</button>
                                 <button onClick={() => handleEditClick(scheme.schemename, scheme.user_id, scheme.documents, scheme._id)}>Edit</button>
                             )}
                             </div>
@@ -181,4 +157,3 @@ const UserSchemes = () => {
 };
 
 export default UserSchemes;
-
