@@ -19,6 +19,8 @@ const AdminNav = () => {
                         <li><Link to="/adminhome/appliedschemes">All Applications</Link></li>
                         <li><Link to="/adminhome/revertedschemes">Reverts</Link></li>
                         <li><Link to="/adminhome/approvedschemes">Approved</Link></li>
+                        <li><Link to="/adminhome/dashboard">Dashboard</Link></li> 
+
                     </div>
                     <Link to="/">
                     <button className="btn" onClick={handlesignout()} >Sign out</button></Link>

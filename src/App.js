@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import axios from 'axios'; // Import Axios for making API calls
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -18,15 +19,13 @@ import AppliedSchemes from './pages/AppliedSchemes';
 import AdminNav from './components/adminNav';
 import ApprovedSchemes from './pages/ApprovedSchemes';
 import RevertedSchemes from './pages/RevertedSchemes';
-import  UserSchemes from './pages/UserSchemes' ;
-import AuthContext from './components/AuthContext';
+import Dashboard from './pages/Dashboard';
+import UserSchemes from './pages/UserSchemes';
 import Profile from './pages/profile';
-import EditForm from './pages/EditForm';
 
 const MainApp = () => {
   const location = useLocation(); // Now this is inside Router context
-  const isAdminPage = location.pathname.includes('/adminhome'); 
-  // List of paths where the Navbar should not be displayed
+  const isAdminPage = location.pathname.includes('/adminhome');
   const hideNavbarRoutes = ['/adminhome'];
 
   return (
@@ -52,11 +51,9 @@ const MainApp = () => {
         <Route path="/adminhome/appliedschemes" element={<AppliedSchemes />} />
         <Route path="/adminhome/approvedschemes" element={<ApprovedSchemes/>} />
         <Route path="/adminhome/revertedschemes" element={<RevertedSchemes/>} />
+        <Route path="/adminhome/dashboard" element={<Dashboard />} />
         <Route path="/myapplications" element={<UserSchemes/>}/>
         <Route path="/profile" element={<Profile />} />
-        <Route path="/edit-form" element={<EditForm />} />
-        <Route path='/schemeform/:schemeId' element={<SchemeForm />} />
-
       </Routes>
     </div>
   );

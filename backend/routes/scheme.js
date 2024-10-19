@@ -139,5 +139,59 @@ router.post('/check', async (req, res) => {
   }
 });
 
+router.get('/updatedoc/user/:userId/:schemename', async (req, res) => {
+  try {
+    const { userId, schemename } = req.params; // Extract both userId and schemename from the request parameters
+    
+    // Find applications that match the userId and schemename
+    const applications = await Scheme.find({
+      user_id: userId,
+      schemename: schemename // Assuming 'schemename' is a field in your Scheme model
+    });
+
+    // Check if applications were found
+    if (!applications.length) {
+      return res.status(404).json({ message: 'No applications found for this user and scheme name.' });
+    }
+
+    // Send the applications back in the response
+    res.json(applications);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+// Existing imports and setup...
+
+router.get('/document/:email/:schemename/:documentName', async (req, res) => {
+  try {
+    const { email, schemename, documentName } = req.params;
+
+    // Find the scheme using the provided email and scheme name
+    const scheme = await Scheme.findOne({ email, schemename });
+
+    if (!scheme) {
+      return res.status(404).json({ message: 'Scheme not found for the provided email and scheme name' });
+    }
+
+    // Find the specified document within the scheme's documents
+    const document = scheme.documents.find(doc => doc.document_name === documentName);
+
+    if (!document) {
+      return res.status(404).json({ message: 'Document not found' });
+    }
+
+    res.set('Content-Type', 'image/jpeg'); // Adjust based on your image type (jpeg, png, etc.)
+    res.send(document.document); // Send the image data
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+// Existing routes...
+
+module.exports = router;
+
 
 module.exports = router;

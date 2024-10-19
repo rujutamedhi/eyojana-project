@@ -53,10 +53,11 @@ function Home() {
             <p>
             E-Yojana is here to help you take full advantage of the resources and support available to you, 
             enhancing your well-being and contributing to national progress.
-            <Link to="/adminhome">Sign up</Link>
+            
             </p>
             <Link to = "/category">
             <button className='schbtn'>Find Schemes </button></Link>
+            <Link to={"/adminhome"}>Admin</Link>
             </div>
             
     </section>
