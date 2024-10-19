@@ -7,7 +7,7 @@ import './schemeform.css';
 const SchemeForm = () => {  
   const location = useLocation();
   const navigate = useNavigate();
-  const { schemeName,documents,user_id, _id } = location.state || {};
+  const { schemeName, documents = [], user_id, _id } = location.state || {}; // Default documents to an empty array
   console.log("&&&&&&")
   console.log(documents)
   console.log("***")
@@ -20,15 +20,16 @@ const SchemeForm = () => {
   const [email, setEmail] = useState(authEmail);
   const sendEmail = async (e) => {
     e.preventDefault();
-  const data = {
-    email,
+    const data = {
+      email,
+    };
+    const response = await axios.post(
+      "http://localhost:5000/api/sendemail",
+      data
+    );
+    console.log(response.data);
   };
-  const response = await axios.post(
-    "http://localhost:5000/api/sendemail",
-    data
-  );
-  console.log(response.data);
-  };
+
   const combinedSubmit = (e) => {
     e.preventDefault(); 
     handleSubmit(e);
@@ -64,10 +65,8 @@ const SchemeForm = () => {
       }
     };
 
-    
     if (email) {
       fetchUserId(); 
-    
     }
   }, [email, formData.schemename]);
 
@@ -111,7 +110,6 @@ const SchemeForm = () => {
     e.preventDefault();
     
     const isExisting = await checkExistingApplication();
-    
 
     const data = new FormData();
     data.append("schemename", formData.schemename);
@@ -185,43 +183,44 @@ const SchemeForm = () => {
       </div>
 
       <h4>Documents:</h4>
-<ul>
-  {documents.map(doc => (
-    <li key={doc.document_name}>
-      <p>{doc.document_name}</p> {/* Display document name */}
-      <img
-        src={`http://localhost:5000/api/schemes/${_id}/documents/${doc.document_name}`}
-        alt={doc.document_name}
-        style={{ width: '200px', height: 'auto', cursor: 'pointer' }}
-        // Uncomment below if you want to handle click on the image
-        // onClick={() => handleDocumentClick(doc.document_name)} 
-      />
-    </li>
-  ))}
-</ul>
+      <ul>
+        {documents.length > 0 ? (
+          documents.map((doc) => (
+            <li key={doc.document_name}>
+              <p>{doc.document_name}</p>
+              <img
+                src={`http://localhost:5000/api/schemes/${_id}/documents/${doc.document_name}`}
+                alt={doc.document_name}
+                style={{ width: '200px', height: 'auto', cursor: 'pointer' }}
+              />
+            </li>
+          ))
+        ) : (
+          <p>No documents available</p>
+        )}
+      </ul>
 
-<h4>Upload New Documents:</h4>
-{formData.documents.map((document, index) => (
-  <div key={index} className="document-input-group">
-    <input
-      type="text"
-      placeholder="Document Name"
-      value={document.name}
-      onChange={(e) => handleDocumentChange(index, e)}
-      required
-    />
-    <input
-      type="file"
-      onChange={(e) => handleDocumentChange(index, e)}
-      required
-    />
-  </div>
-))}
+      <h4>Upload New Documents:</h4>
+      {formData.documents.map((document, index) => (
+        <div key={index} className="document-input-group">
+          <input
+            type="text"
+            placeholder="Document Name"
+            value={document.name}
+            onChange={(e) => handleDocumentChange(index, e)}
+            required
+          />
+          <input
+            type="file"
+            onChange={(e) => handleDocumentChange(index, e)}
+            required
+          />
+        </div>
+      ))}
 
-<button type="button" className="buttons add-document-btn" onClick={addDocument}>
-  Add Document
-</button>
-
+      <button type="button" className="buttons add-document-btn" onClick={addDocument}>
+        Add Document
+      </button>
 
       <button type="submit" className="buttons submit-btn">Submit</button>
     </form>
