@@ -92,6 +92,7 @@ const UserSchemes = () => {
       const handleEditClick = (schemeName, user_id, documents, _id) => {
         // Assuming you're using React Router's useNavigate hook for navigation
         navigate('/schemeform', { state: { schemeName, user_id, documents, _id } })
+        
     };
 
     const handleDocumentClick = (docName) => {
@@ -116,7 +117,7 @@ const UserSchemes = () => {
                             <div className='schemenm'>
                             <h4>{scheme.schemename}</h4>
                             </div>
-                            <div className='schemedoc'>
+                            {/* <div className='schemedoc'>
                             <h5>Documents</h5>
                                 <ul>
                                 {scheme.documents.map(doc => (
@@ -132,7 +133,7 @@ const UserSchemes = () => {
                                 ))}
                                 </ul>
 
-                            </div>
+                            </div> */}
                             <div>
                             <p>Status: <span className={`status-${scheme.status.toLowerCase()}`}>{scheme.status}</span></p>
                             {scheme.status.trim().toLowerCase() === 'reverted' && (
@@ -157,4 +158,3 @@ const UserSchemes = () => {
 };
 
 export default UserSchemes;
-
