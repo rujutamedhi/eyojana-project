@@ -15,61 +15,66 @@ const UserSignUp = () => {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-
     setErrorMessage("");
 
     if (!email || !phone_number || !password || !username || !state || !gender) {
-      setErrorMessage("All fields are required.");
-      return;
+        setErrorMessage("All fields are required.");
+        return;
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
-      setErrorMessage("Please enter a valid email address.");
-      return;
+        setErrorMessage("Please enter a valid email address.");
+        return;
     }
     const phonePattern = /^[789]\d{9}$/;
     if (!phonePattern.test(phone_number)) {
-      setErrorMessage("Please enter a valid phone number!!!");
-      return;
+        setErrorMessage("Please enter a valid phone number!!!");
+        return;
     }
     if (password.length < 10) {
-      setErrorMessage("Password must be at least 10 characters long.");
-      return;
+        setErrorMessage("Password must be at least 10 characters long.");
+        return;
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/createuser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          phone_number,
-          password,
-          username,
-          state,
-          gender,
-        }),
-      });
+        const response = await fetch("http://localhost:5000/api/auth/createuser", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email,
+                phone_number,
+                password,
+                username,
+                state,
+                gender,
+            }),
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (response.ok) {
-        setShowPopup(true);
-        setTimeout(() => {
-          setShowPopup(false);
-          navigate("/login"); // Redirect to login after a short delay
-        }, 3000); // Adjust delay as needed
-      } else {
-        setErrorMessage(data.errors || "Sign-up failed. Please try again.");
-      }
+        if (response.ok) {
+            setShowPopup(true);
+            setTimeout(() => {
+                setShowPopup(false);
+                navigate("/login");
+            }, 3000);
+        } else {
+            // Ensure the error message is a string
+            if (data.errors && typeof data.errors === 'object') {
+                setErrorMessage(data.errors.msg || "Sign-up failed. Please try again.");
+            } else {
+                setErrorMessage("Sign-up failed. Please try again.");
+            }
+        }
     } catch (error) {
-      console.error("Sign-up error:", error);
-      setErrorMessage("An error occurred during sign-up. Please try again.");
+        console.error("Sign-up error:", error);
+        setErrorMessage("An error occurred during sign-up. Please try again.");
     }
-  };
+};
+
 
   return (
     <div className="signup-page">
