@@ -7,32 +7,25 @@ import './schemeform.css';
 const SchemeForm = () => {  
   const location = useLocation();
   const navigate = useNavigate();
-  const { schemeName, documents = [], user_id, _id } = location.state || {}; // Default documents to an empty array
-  console.log("&&&&&&")
-  console.log(documents)
-  console.log("***")
-  console.log(_id)
-  console.log("%%")
-  console.log(user_id)
-  const currentcategory = location.state?.currentcategory || "";
+  const { schemeName, documents = [], user_id, _id } = location.state || {};
 
+  const currentcategory = location.state?.currentcategory || "";
   const { email: authEmail } = useAuth(); 
   const [email, setEmail] = useState(authEmail);
+
+  // New state to track if the application already exists
+  const [isExistingApplication, setIsExistingApplication] = useState(false);
+
   const sendEmail = async (e) => {
     e.preventDefault();
-    const data = {
-      email,
-    };
-    const response = await axios.post(
-      "http://localhost:5000/api/sendemail",
-      data
-    );
+    const data = { email };
+    const response = await axios.post("http://localhost:5000/api/sendemail", data);
     console.log(response.data);
   };
 
-  const combinedSubmit = (e) => {
+  const combinedSubmit = async (e) => {
     e.preventDefault(); 
-    handleSubmit(e);
+    await handleSubmit(e);
     sendEmail(e);
   };
 
@@ -70,6 +63,27 @@ const SchemeForm = () => {
     }
   }, [email, formData.schemename]);
 
+  useEffect(() => {
+    // Call checkExistingApplication when component mounts
+    const checkExistingApplication = async () => {
+      try {
+        const res = await axios.post("http://localhost:5000/api/schemes/check", {
+          email: formData.email,
+          schemename: formData.schemename,
+          documents: formData.documents,
+        });
+        setIsExistingApplication(res.data.exists); // Update state based on the result
+      } catch (err) {
+        console.error("Error checking existing application:", err);
+        setError("Error checking existing application.");
+      }
+    };
+
+    if (formData.schemename) {
+      checkExistingApplication();
+    }
+  }, [formData.schemename, formData.email, formData.documents]); // Make sure to run this effect when schemename or email changes
+
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -91,26 +105,9 @@ const SchemeForm = () => {
     setFormData({ ...formData, documents: updatedDocuments });
   };
 
-  const checkExistingApplication = async () => {
-    try {
-      const res = await axios.post("http://localhost:5000/api/schemes/check", {
-        email: formData.email,
-        schemename: formData.schemename,
-        documents: formData.documents,
-      });
-      return res.data.exists; 
-    } catch (err) {
-      console.error("Error checking existing application:", err);
-      setError("Error checking existing application.");
-      return false;
-    }
-  };
-
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    const isExisting = await checkExistingApplication();
-
+    e.preventDefault();  // Prevent the default form submission behavior
+  
     const data = new FormData();
     data.append("schemename", formData.schemename);
     data.append("user_id", formData.user_id); 
@@ -118,16 +115,18 @@ const SchemeForm = () => {
     data.append("status", formData.status);
     data.append("category", formData.category);
     
+    // Append documents to FormData
     formData.documents.forEach((document, index) => {
       if (document.file) {
         data.append("documents", document.file);
         data.append(`document_name_${index}`, document.name); 
       }
     });
-
+  
     try {
-      if (isExisting) {
-        const res = await axios.patch("http://localhost:5000/api/schemes/update", data, {
+      if (isExistingApplication) {
+        // If the application already exists, send a PATCH request to update it
+        const res = await axios.patch(`http://localhost:5000/api/schemes/update/${formData.user_id}`, data, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -135,6 +134,7 @@ const SchemeForm = () => {
         console.log("Response:", res.data);
         setSuccess("Application updated successfully!"); 
       } else {
+        // If the application doesn't exist, send a POST request to submit a new application
         const res = await axios.post("http://localhost:5000/api/schemes", data, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -148,6 +148,7 @@ const SchemeForm = () => {
       console.error("Error uploading files:", err);
     }
   };
+  
 
   return (
     <form className="form1" onSubmit={combinedSubmit}>
@@ -222,7 +223,10 @@ const SchemeForm = () => {
         Add Document
       </button>
 
-      <button type="submit" className="buttons submit-btn">Submit</button>
+      {/* Conditionally render Submit or Update button */}
+      <button type="submit" className="buttons submit-btn">
+        {isExistingApplication ? "Update" : "Submit"}
+      </button>
     </form>
   );
 };
