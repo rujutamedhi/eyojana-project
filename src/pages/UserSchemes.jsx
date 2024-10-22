@@ -92,6 +92,7 @@ const UserSchemes = () => {
       const handleEditClick = (schemeName, user_id, documents, _id) => {
         // Assuming you're using React Router's useNavigate hook for navigation
         navigate('/schemeform', { state: { schemeName, user_id, documents, _id } })
+        
     };
 
     const handleDocumentClick = (docName) => {
@@ -157,4 +158,3 @@ const UserSchemes = () => {
 };
 
 export default UserSchemes;
-
