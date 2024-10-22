@@ -10,19 +10,22 @@ import {
   Legend,
   CartesianGrid,
   Bar,
+  Cell,
+  
 } from 'recharts';
 import './Dashboard.css'; // Import the CSS
 
 const Dashboard = () => {
   const [userCount, setUserCount] = useState(0);
   const [schemeData, setSchemeData] = useState([]); // Full scheme data for charts
-  const [filteredSchemeNames, setFilteredSchemeNames] = useState([]); // Store filtered scheme names
+  const [filteredSchemes, setfilteredSchemes] = useState([]); // Store filtered scheme data
   const [users, setUsers] = useState([]); // State to hold users
   const [selectedUser, setSelectedUser] = useState(''); // State for selected user
   const [selectedStatus, setSelectedStatus] = useState(''); // State for selected status
   const [showFilteredSchemes, setShowFilteredSchemes] = useState(false); // State to manage visibility of filtered schemes
 
   useEffect(() => {
+
     const fetchData = async () => {
       try {
         const userResponse = await axios.get('http://localhost:5000/api/statistics/users/count');
@@ -53,12 +56,11 @@ const Dashboard = () => {
       if (selectedStatus) {
         params.status = selectedStatus; // Set status if a status is selected
       }
-  
+
       const response = await axios.get('http://localhost:5000/api/statistics/filterscheme', { params });
-      console.log("API Response:", response.data); // Log the response to check its structure
-      setFilteredSchemeNames(response.data.map(scheme => scheme.schemename)); // Store only names
-      console.log("Filtered Scheme Names:", response.data.map(scheme => scheme.schemename)); // Log filtered names
-  
+      console.log("API Response sduohsodho:", response.data); // Log the response to check its structure
+      setfilteredSchemes(response.data); // Store the full filtered scheme data
+
       setShowFilteredSchemes(true);
     } catch (error) {
       console.error('Error fetching filtered data:', error);
@@ -70,7 +72,7 @@ const Dashboard = () => {
     if (selectedUser || selectedStatus) {
       handleFilterChange(); // Automatically fetch names when filters change
     } else {
-      setFilteredSchemeNames([]); // Reset if no filter is applied
+      setfilteredSchemes([]); // Reset if no filter is applied
       setShowFilteredSchemes(false); // Hide filtered schemes if no filter
     }
   }, [selectedUser, selectedStatus]);
@@ -84,20 +86,29 @@ const Dashboard = () => {
       <div className="chart-container">
         {/* Pie Chart */}
         <div className="pie-chart">
-          <PieChart width={500} height={400}>
-            <Pie
-              dataKey="appliedUsers"
-              isAnimationActive={false}
-              data={schemeData} // Always use full scheme data for the pie chart
-              cx={250} // Centering the pie chart
-              cy={200} // Centering the pie chart
-              outerRadius={80}
-              fill="#8884d8" // Default color for the pie chart
-              label={({ payload }) => payload.schemeName || payload._id} // Display scheme names on hover
-            />
-            <Tooltip />
-          </PieChart>
-        </div>
+        <PieChart width={500} height={400}>
+        <Pie
+          dataKey="appliedUsers"
+          isAnimationActive={false}
+          data={schemeData} // Full scheme data
+          cx={250}
+          cy={200}
+          outerRadius={80}
+          fill="#8884d8"
+          label={({ payload }) => payload.schemename || payload._id} // Display scheme names as labels
+        />
+        <Tooltip content={({ payload }) => {
+          if (payload && payload.length) {
+            return (
+              <div className="custom-tooltip">
+                <p>{`AppliedUsers: ${payload[0].value}`}</p>
+              </div>
+            );
+          }
+          return null;
+        }} />
+      </PieChart>
+      </div>
 
         {/* Bar Chart */}
         <div className="bar-chart">
@@ -113,7 +124,7 @@ const Dashboard = () => {
             }}
             barSize={20}
           >
-            <XAxis dataKey="_id" /> {/* Use scheme name instead of schemeName */}
+            <XAxis dataKey="_id" /> 
             <YAxis />
             <Tooltip />
             <Legend />
@@ -143,22 +154,35 @@ const Dashboard = () => {
         <button onClick={handleFilterChange}>Filter</button>
       </div>
 
-      {/* Display filtered scheme names in a simple list */}
+      {/* Display filtered scheme data in a Pie chart */}
       {showFilteredSchemes && (
-        <div className="filtered-scheme-names">
-          <h3>Filtered Scheme Names:</h3>
-          {filteredSchemeNames.length > 0 ? (
-            <ul>
-              {filteredSchemeNames.map((schemename, index) => (
-                <li key={index}>{schemename}</li> // Display scheme name in a simple list
-              ))}
-            </ul>
-          ) : (
-            <p>No schemes found for the selected filters.</p>
-          )}
-        </div>
-      )}
-    </div>
+  <div className="filtered-scheme-chart">
+    <h3>Filtered Scheme Data:</h3>
+    {filteredSchemes.length > 0 ? (
+      <BarChart
+        width={500}
+        height={300}
+        data={schemeData}
+        margin={{
+          top: 5, right: 30, left: 80, bottom: 5,
+        }}
+        barSize={30}
+      >
+        {/* Use 'schemename' directly for the X-axis */}
+        <XAxis dataKey="schemename" />
+        <YAxis />
+        <Tooltip />
+        <CartesianGrid strokeDasharray="3 3" />
+        {/* Bar to represent appliedUsers */}
+        <Bar dataKey="appliedUsers" fill="#82ca9d" />
+      </BarChart>
+    ) : (
+      <p>No schemes found for the selected filters.</p>
+    )}
+  </div>
+)}
+
+  </div>
   );
 };
 
