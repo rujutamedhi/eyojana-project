@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# E-Yojana
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+E-Yojana is a web-based platform designed to help users stay informed about upcoming government schemes in India. The platform also enables users to apply directly for these schemes through an easy-to-use interface. It integrates both an **Admin Portal** for managing scheme data and a **User Portal** for browsing and applying to government schemes.
 
-## Available Scripts
+The application is built using the **MERN** stack (MongoDB, Express.js, React.js, Node.js) and **PostgreSQL** for database management. The platform is designed to be user-friendly and efficient, making government schemes accessible to all citizens.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+### User Portal
+- **Browse Government Schemes**: Users can browse and explore various government schemes based on different categories.
+- **Apply for Schemes**: Users can apply directly to the schemes by filling out necessary forms and uploading documents.
+- **Track Application Status**: Users can check the status of their applications, whether they are pending, verified, or rejected.
+- **Email Notifications**: Users receive email notifications regarding the status of their applications.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Admin Portal
+- **Add/Edit Government Schemes**: Admins can add new schemes or edit existing ones in the system.
+- **Verify Applications**: Admins can view, verify, or reject user applications based on the uploaded documents.
+- **Notification System**: Admins can send email notifications to users about the status of their applications.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech Stack
 
-### `npm test`
+- **Frontend**: React.js, Bootstrap
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB, PostgreSQL
+- **Authentication**: JWT (JSON Web Tokens)
+- **Email Notifications**: NodeMailer
+- **Version Control**: Git, GitHub
+# E-Yojana
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+E-Yojana is a web-based platform designed to help users stay informed about upcoming government schemes in India. The platform also enables users to apply directly for these schemes through an easy-to-use interface. It integrates both an **Admin Portal** for managing scheme data and a **User Portal** for browsing and applying to government schemes.
 
-### `npm run build`
+The application is built using the **MERN** stack (MongoDB, Express.js, React.js, Node.js) and **PostgreSQL** for database management. The platform is designed to be user-friendly and efficient, making government schemes accessible to all citizens.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### User Portal
+- **Browse Government Schemes**: Users can browse and explore various government schemes based on different categories.
+- **Apply for Schemes**: Users can apply directly to the schemes by filling out necessary forms and uploading documents.
+- **Track Application Status**: Users can check the status of their applications, whether they are pending, verified, or rejected.
+- **Email Notifications**: Users receive email notifications regarding the status of their applications.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Admin Portal
+- **Add/Edit Government Schemes**: Admins can add new schemes or edit existing ones in the system.
+- **Verify Applications**: Admins can view, verify, or reject user applications based on the uploaded documents.
+- **Notification System**: Admins can send email notifications to users about the status of their applications.
 
-### `npm run eject`
+## Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Frontend**: React.js, Bootstrap
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB, PostgreSQL
+- **Authentication**: JWT (JSON Web Tokens)
+- **Email Notifications**: NodeMailer
+- **Version Control**: Git, GitHub
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Clone the repository
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+git clone https://github.com/ShravaniAnilPatil/eyojana-project.git
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
