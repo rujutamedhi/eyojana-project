@@ -2,7 +2,7 @@
 
 E-Yojana is a web-based platform designed to help users stay informed about upcoming government schemes in India. The platform also enables users to apply directly for these schemes through an easy-to-use interface. It integrates both an **Admin Portal** for managing scheme data and a **User Portal** for browsing and applying to government schemes.
 
-The application is built using the **MERN** stack (MongoDB, Express.js, React.js, Node.js) and **PostgreSQL** for database management. The platform is designed to be user-friendly and efficient, making government schemes accessible to all citizens.
+The application is built using the **MERN** stack (MongoDB, Express.js, React.js, Node.js). The platform is designed to be user-friendly and efficient, making government schemes accessible to all citizens.
 
 ## Features
 
